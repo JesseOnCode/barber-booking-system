@@ -1,0 +1,118 @@
+/* ===== RESET / PERUSASETUKSET ===== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #222;
+    background-color: #f5f5f5;
+}
+
+/* ===== HEADER & NAV ===== */
+
+header {
+    background-color: #111;
+    padding: 1rem 2rem;
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ===== YLEINEN SISÄLTÖ ===== */
+
+main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+h1, h2 {
+    margin-bottom: 1rem;
+}
+
+/* ===== HERO ===== */
+
+#hero {
+    background-color: #fff;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+#hero a {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #111;
+    color: #fff;
+    text-decoration: none;
+}
+
+#hero a:hover {
+    background-color: #333;
+}
+
+/* ===== PALVELUT ===== */
+
+#services ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+}
+
+/* ===== CTA ===== */
+
+#cta {
+    background-color: #111;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+}
+
+#cta a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #111;
+    background-color: #fff;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+}
+
+/* ===== BOOKING ===== */
+
+#booking-steps ol {
+    padding-left: 1.5rem;
+}
+
+#booking-steps li {
+    margin-bottom: 0.5rem;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 4rem;
+}
