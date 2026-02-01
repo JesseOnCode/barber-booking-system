@@ -1,118 +1,82 @@
-/* ===== RESET / PERUSASETUKSET ===== */
-
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: #222;
-    background-color: #f5f5f5;
 }
 
-/* ===== HEADER & NAV ===== */
+/* YLEINEN CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-header {
+/* HEADER / NAVBAR */
+.site-header {
     background-color: #111;
-    padding: 1rem 2rem;
+    color: #fff;
 }
 
-nav {
+.site-header .container {
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
 }
 
-nav a {
+/* LOGO */
+.logo a {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #c59d5f;
+}
+
+/* NAVIGATION */
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.main-nav a {
     color: #fff;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 16px;
 }
 
-nav a:hover {
-    text-decoration: underline;
+.main-nav a:hover {
+    color: #c59d5f;
 }
 
-/* ===== YLEINEN SISÄLTÖ ===== */
-
-main {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+/* AUTH BUTTON */
+.auth .btn-auth {
+    background-color: #c59d5f;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
+.auth .btn-auth:hover {
+    background-color: #b0894f;
+}
+
+/* SECTIONS */
 section {
-    margin-bottom: 3rem;
+    padding: 80px 20px;
 }
-
-h1, h2 {
-    margin-bottom: 1rem;
-}
-
-/* ===== HERO ===== */
 
 #hero {
-    background-color: #fff;
-    padding: 3rem 2rem;
+    background-color: #f4f4f4;
     text-align: center;
-}
-
-#hero a {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #111;
-    color: #fff;
-    text-decoration: none;
-}
-
-#hero a:hover {
-    background-color: #333;
-}
-
-/* ===== PALVELUT ===== */
-
-#services ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-}
-
-/* ===== CTA ===== */
-
-#cta {
-    background-color: #111;
-    color: #fff;
-    padding: 2rem;
-    text-align: center;
-}
-
-#cta a {
-    display: inline-block;
-    margin-top: 1rem;
-    color: #111;
-    background-color: #fff;
-    padding: 0.75rem 1.5rem;
-    text-decoration: none;
-}
-
-/* ===== BOOKING ===== */
-
-#booking-steps ol {
-    padding-left: 1.5rem;
-}
-
-#booking-steps li {
-    margin-bottom: 0.5rem;
-}
-
-/* ===== FOOTER ===== */
-
-footer {
-    background-color: #111;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 4rem;
 }
