@@ -4,25 +4,32 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
 }
 
-/* YLEINEN CONTAINER */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* HEADER / NAVBAR */
+/* =========================
+   HEADER / NAVBAR
+========================= */
 .site-header {
-    background-color: #111;
+    background-color: #000;
     color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
 .site-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -38,45 +45,101 @@ body {
 }
 
 .logo span {
-    color: #c59d5f;
+    color: #c97a2b; /* PRONSSINEN AKSENTTIVÄRI */
 }
 
 /* NAVIGATION */
 .main-nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 24px;
 }
 
 .main-nav a {
-    color: #fff;
+    color: #eee;
     text-decoration: none;
     font-size: 16px;
 }
 
 .main-nav a:hover {
-    color: #c59d5f;
+    color: #c97a2b;
 }
 
 /* AUTH BUTTON */
 .auth .btn-auth {
-    background-color: #c59d5f;
+    background-color: #c97a2b;
     border: none;
     padding: 8px 16px;
     cursor: pointer;
     font-size: 14px;
+    color: #000;
 }
 
 .auth .btn-auth:hover {
-    background-color: #b0894f;
+    background-color: #b86f26;
 }
 
-/* SECTIONS */
+/* =========================
+   MAIN / SECTIONS
+========================= */
+main {
+    margin-top: 70px;
+}
+
 section {
-    padding: 80px 20px;
+    min-height: calc(100vh - 70px);
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
+/* =========================
+   HERO IMAGE
+========================= */
 #hero {
-    background-color: #f4f4f4;
-    text-align: center;
+    background-image: url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 20px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+#about {
+    background-color: #fff;
+}
+
+/* =========================
+   SERVICES
+========================= */
+#services {
+    background-color: #f9f9f9;
+}
+
+/* =========================
+   CONTACT
+========================= */
+#contact {
+    background-color: #fff;
 }

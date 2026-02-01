@@ -3,8 +3,10 @@
 <main>
 
     <section id="hero">
-        <h1>Tervetuloa parturiimme</h1>
-        <p>Ammattitaitoinen parturi ajanvarauksella</p>
+        <div class="hero-content">
+            <h1>Tervetuloa parturiimme</h1>
+            <p>Ammattitaitoinen parturi ajanvarauksella</p>
+        </div>
     </section>
 
     <section id="about">
