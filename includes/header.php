@@ -8,7 +8,10 @@
 
 <header>
     <nav>
-        <a href="index.php">Etusivu</a>
+        <a href="index.php#hero">Etusivu</a>
+        <a href="index.php#services">Palvelut</a>
+        <a href="index.php#about">Meistä</a>
+        <a href="index.php#cta">Varaa</a>
         <a href="booking.php">Ajanvaraus</a>
         <a href="login.php">Kirjaudu / Rekisteröidy</a>
     </nav>
