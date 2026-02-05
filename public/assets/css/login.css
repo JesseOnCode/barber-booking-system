@@ -1,0 +1,117 @@
+/* =========================
+   RESET & GLOBAL
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    /* Hero-taustakuva login-sivulle */
+    background-image: url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* =========================
+   LOGIN CONTAINER
+========================= */
+.login-container {
+    background-color: rgba(0,0,0,0.65); /* tumma läpikuultava tausta lomakkeelle */
+    padding: 40px 30px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.login-container h1 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+/* =========================
+   FORM ELEMENTS
+========================= */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-form label {
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.login-form input {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+.btn-login {
+    padding: 14px;
+    background-color: #c97a2b;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-login:hover {
+    background-color: #b86f26;
+}
+
+/* =========================
+   REGISTER TEXT
+========================= */
+.register-text {
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.register-text a {
+    color: #c97a2b;
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 20px;
+    }
+
+    .login-container h1 {
+        font-size: 28px;
+    }
+
+    .login-form input {
+        font-size: 14px;
+    }
+
+    .btn-login {
+        font-size: 14px;
+        padding: 12px;
+    }
+}

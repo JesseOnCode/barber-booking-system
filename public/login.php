@@ -1,18 +1,30 @@
-<?php include '../includes/header.php'; ?>
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirjaudu sisään - BarberShop</title>
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
 
-<main>
-    <h1>Kirjaudu</h1>
+<div class="login-container">
+    <h1>Kirjaudu sisään</h1>
+    <form class="login-form">
+        <label for="email">Sähköposti</label>
+        <input type="email" id="email" placeholder="Sähköposti" required>
 
-    <p>
-        Kirjautuminen vaaditaan ennen varauksen vahvistusta.
+        <label for="password">Salasana</label>
+        <input type="password" id="password" placeholder="Salasana" required>
+
+        <button type="submit" class="btn-login">Kirjaudu</button>
+    </form>
+
+    <p class="register-text">
+        Eikö sinulla ole vielä tunnusta? 
+        <a href="register.php">Rekisteröidy tästä</a>
     </p>
+</div>
 
-    <!-- Kirjautumislomake lisätään myöhemmin -->
-
-    <p>
-        Eikö sinulla ole tiliä?
-        <a href="register.php">Rekisteröidy</a>
-    </p>
-</main>
-
-<?php include '../includes/footer.php'; ?>
+</body>
+</html>
