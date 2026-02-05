@@ -77,10 +77,15 @@ body {
     cursor: pointer;
     font-size: 14px;
     color: #000;
+    text-decoration: none; /* poistaa alleviivauksen */
+    display: inline-block;
+    transition: all 0.2s ease; /* animointi hoverille */
 }
 
 .auth .btn-auth:hover {
-    background-color: #b86f26;
+    background-color: #b86f26; /* hieman tummempi hover */
+    transform: translateY(-2px); /* pieni “nouseva” efekti */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* lisää syvyyttä */
 }
 
 /* HAMBURGER (MOBILE) */

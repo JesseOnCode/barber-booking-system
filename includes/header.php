@@ -32,7 +32,7 @@
         </div>
 
         <div class="auth">
-            <button class="btn-auth">Kirjaudu / Rekisteröidy</button>
+            <a href="login.php" class="btn-auth">Kirjaudu / Rekisteröidy</a>
         </div>
     </div>
 </header>
