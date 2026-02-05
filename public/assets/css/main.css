@@ -1,3 +1,6 @@
+/* =========================
+   RESET & GLOBAL
+========================= */
 * {
     margin: 0;
     padding: 0;
@@ -80,11 +83,28 @@ body {
     background-color: #b86f26;
 }
 
+/* HAMBURGER (MOBILE) */
+.nav-toggle {
+    display: none; /* piilotetaan pöytäkoneella */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+}
+
 /* =========================
    MAIN / SECTIONS
 ========================= */
 main {
-    margin-top: 70px;
+    margin-top: 70px; /* navbarin korkeus */
 }
 
 section {
@@ -97,7 +117,7 @@ section {
 }
 
 /* =========================
-   HERO IMAGE
+   HERO SECTION
 ========================= */
 #hero {
     background-image: url("../images/hero.jpg");
@@ -105,33 +125,7 @@ section {
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-}
-
-.hero-content {
-    background-color: rgba(0, 0, 0, 0.65);
-    color: #fff;
-    padding: 40px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.hero-content h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.hero-content p {
-    font-size: 20px;
-}
-/* =========================
-   HERO - RESPONSIVE
-========================= */
-.hero {
-    height: calc(100vh - 70px); /* koko ruutu navbarin alapuolella */
-    background-image: url("../images/hero.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: calc(100vh - 70px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,7 +134,7 @@ section {
 }
 
 .hero-content {
-    background-color: rgba(0, 0, 0, 0.6); /* tumma läpikuultava tausta tekstille */
+    background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
     padding: 30px 20px;
     max-width: 600px;
@@ -175,9 +169,53 @@ section {
 }
 
 /* =========================
+   ABOUT SECTION
+========================= */
+#about {
+    background-color: #222; /* tumma tausta */
+    color: #fff; /* valkoinen teksti */
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.about-content {
+    max-width: 700px;
+}
+
+#about h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+/* =========================
+   SERVICES SECTION
+========================= */
+#services {
+    background-color: #f9f9f9;
+}
+
+/* =========================
+   CONTACT SECTION
+========================= */
+#contact {
+    background-color: #fff;
+}
+
+/* =========================
    RESPONSIVE MEDIA QUERIES
 ========================= */
 @media (max-width: 768px) {
+    /* HERO */
     .hero-content h1 {
         font-size: 36px;
     }
@@ -188,9 +226,42 @@ section {
         padding: 12px 24px;
         font-size: 14px;
     }
+
+    /* ABOUT */
+    #about h2 {
+        font-size: 28px;
+    }
+    #about p {
+        font-size: 16px;
+    }
+
+    /* NAVBAR */
+    .main-nav ul {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: #000;
+        display: none;
+        text-align: center;
+    }
+
+    .main-nav ul li {
+        margin: 15px 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .main-nav.active ul {
+        display: flex;
+    }
 }
 
 @media (max-width: 480px) {
+    /* HERO */
     .hero-content h1 {
         font-size: 28px;
     }
@@ -201,71 +272,12 @@ section {
         padding: 10px 20px;
         font-size: 13px;
     }
-}
-/* =========================
-   ABOUT
-========================= */
-#about {
-    background-color: #fff;
-}
 
-/* =========================
-   SERVICES
-========================= */
-#services {
-    background-color: #f9f9f9;
-}
-
-/* =========================
-   CONTACT
-========================= */
-#contact {
-    background-color: #fff;
-}
-/* =========================
-   NAVBAR RESPONSIVE
-========================= */
-
-/* Hamburger-nappi piilotetaan pöytäkoneella */
-.nav-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 24px;
-    height: 18px;
-    cursor: pointer;
-}
-
-.nav-toggle span {
-    display: block;
-    height: 3px;
-    background: #fff;
-    border-radius: 2px;
-}
-
-/* Mobiililayout */
-@media (max-width: 768px) {
-    .main-nav ul {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        width: 100%;
-        flex-direction: column;
-        background-color: #000;
-        display: none; /* piilotetaan aluksi */
-        text-align: center;
+    /* ABOUT */
+    #about h2 {
+        font-size: 24px;
     }
-
-    .main-nav ul li {
-        margin: 15px 0;
-    }
-
-    .nav-toggle {
-        display: flex; /* näytetään hamburger mobiilissa */
-    }
-
-    /* Kun aktiivinen, näytetään linkit */
-    .main-nav.active ul {
-        display: flex;
+    #about p {
+        font-size: 14px;
     }
 }

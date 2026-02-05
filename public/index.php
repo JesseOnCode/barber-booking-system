@@ -8,14 +8,16 @@
         <p>Ammattitaitoinen parturi ajanvarauksella</p>
         <a href="booking.php" class="btn-primary">Varaa aika</a>
     </div>
-</section>
+    </section>
 
-    <section id="about">
+   <section id="about">
+    <div class="about-content">
         <h2>Meistä</h2>
-        <p>
-            Olemme moderni parturiliike, joka tarjoaa laadukkaita
-            hiustenleikkauksia ja partapalveluita ajanvarauksella.
+        <p>Olemme moderni parturiliike, joka tarjoaa laadukkaita
+           hiustenleikkauksia ja partapalveluita ajanvarauksella.
         </p>
+        <p>Panostamme asiakaskokemukseen, hygieniaan ja ammattitaitoon.</p>
+    </div>
     </section>
 
     <section id="services">
