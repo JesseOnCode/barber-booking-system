@@ -285,6 +285,35 @@ section {
         font-size: 14px;
     }
 }
+/* =========================
+   FOOTER
+========================= */
+#site-footer {
+    background-color: #000000; /* tumma tausta */
+    color: #fff; /* valkoinen teksti */
+    text-align: center;
+    padding: 40px 20px;
+}
+
+#site-footer .footer-content p {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    #site-footer .footer-content p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #site-footer .footer-content p {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+}
+
 
 
 /* =========================
