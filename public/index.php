@@ -38,13 +38,17 @@
             </li>
         </ul>
     </div>
-</section>
-
-    <section id="contact">
-        <h2>Yhteystiedot</h2>
-        <p>Ota yhteyttä tai tule käymään liikkeessämme.</p>
     </section>
 
-</main>
+    <section id="contact">
+    <div class="contact-content">
+        <h2>Yhteystiedot</h2>
+        <p>Ota yhteyttä tai tule käymään liikkeessämme:</p>
+        <p>Osoite: Parturikuja 5, 70800 Kuopio</p>
+        <p>Sähköposti: infodemo@barbershop.fi</p>
+        <p>Puhelin: 040 123 4567</p>
+    </div>
+    </section>
+
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

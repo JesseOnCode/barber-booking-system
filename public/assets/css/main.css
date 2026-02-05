@@ -240,8 +240,52 @@ section {
    CONTACT SECTION
 ========================= */
 #contact {
-    background-color: #fff;
+    background-color: #222; /* tumma tausta kuten about */
+    color: #fff; /* valkoinen teksti */
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
 }
+
+.contact-content {
+    max-width: 700px;
+}
+
+#contact h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#contact p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+/* =========================
+   CONTACT RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    #contact h2 {
+        font-size: 28px;
+    }
+    #contact p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact h2 {
+        font-size: 24px;
+    }
+    #contact p {
+        font-size: 14px;
+    }
+}
+
 
 /* =========================
    RESPONSIVE MEDIA QUERIES
