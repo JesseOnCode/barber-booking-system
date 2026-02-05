@@ -48,7 +48,7 @@ body {
 }
 
 .logo span {
-    color: #c97a2b; /* PRONSSINEN AKSENTTIVÄRI */
+    color: #c97a2b;
 }
 
 /* NAVIGATION */
@@ -85,7 +85,7 @@ body {
 
 /* HAMBURGER (MOBILE) */
 .nav-toggle {
-    display: none; /* piilotetaan pöytäkoneella */
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     width: 24px;
@@ -104,7 +104,7 @@ body {
    MAIN / SECTIONS
 ========================= */
 main {
-    margin-top: 70px; /* navbarin korkeus */
+    margin-top: 70px; /* navbar height */
 }
 
 section {
@@ -201,7 +201,39 @@ section {
    SERVICES SECTION
 ========================= */
 #services {
-    background-color: #f9f9f9;
+    background-color: #000;
+    color: #fff;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.services-content {
+    max-width: 700px;
+}
+
+#services h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#services ul.service-list {
+    list-style: none;
+    padding: 0;
+}
+
+#services ul.service-list li {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+#services ul.service-list li strong {
+    display: inline-block;
+    width: 250px;
+    text-align: left;
 }
 
 /* =========================
@@ -233,6 +265,17 @@ section {
     }
     #about p {
         font-size: 16px;
+    }
+
+    /* SERVICES */
+    #services h2 {
+        font-size: 28px;
+    }
+    #services ul.service-list li {
+        font-size: 16px;
+    }
+    #services ul.service-list li strong {
+        width: 180px;
     }
 
     /* NAVBAR */
@@ -279,5 +322,19 @@ section {
     }
     #about p {
         font-size: 14px;
+    }
+
+    /* SERVICES */
+    #services h2 {
+        font-size: 24px;
+    }
+    #services ul.service-list li {
+        font-size: 14px;
+    }
+    #services ul.service-list li strong {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 4px;
     }
 }

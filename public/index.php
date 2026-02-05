@@ -21,9 +21,24 @@
     </section>
 
     <section id="services">
-        <h2>Palvelut</h2>
-        <p>Tutustu palveluihimme ja varaa aika helposti.</p>
-    </section>
+    <div class="services-content">
+        <h2>Palvelut ja hinnat</h2>
+        <ul class="service-list">
+            <li>
+                <strong>Miesten hiustenleikkaus</strong>  25€
+            </li>
+            <li>
+                <strong>Parranleikkaus</strong>  15€
+            </li>
+            <li>
+                <strong>Hiusten ja parran yhdistelmä</strong>  35€
+            </li>
+            <li>
+                <strong>Hiusten pesu ja föönaus</strong>  10€
+            </li>
+        </ul>
+    </div>
+</section>
 
     <section id="contact">
         <h2>Yhteystiedot</h2>
