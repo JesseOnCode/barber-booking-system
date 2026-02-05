@@ -245,7 +245,7 @@ section {
    CONTACT SECTION
 ========================= */
 #contact {
-    background-color: #222; /* tumma tausta kuten about */
+    background-color: #000000; /* tumma tausta kuten about */
     color: #fff; /* valkoinen teksti */
     min-height: calc(100vh - 70px);
     display: flex;
@@ -291,10 +291,83 @@ section {
     }
 }
 /* =========================
+   BOOKING CTA SECTION
+========================= */
+#booking-cta {
+    background-color: #222; /* sama kuin about */
+    color: #fff;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.booking-cta-content {
+    max-width: 700px;
+}
+
+#booking-cta h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#booking-cta p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* BUTTON */
+#booking-cta .btn-primary {
+    display: inline-block;
+    padding: 14px 28px;
+    background-color: #c97a2b;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+#booking-cta .btn-primary:hover {
+    background-color: #b86f26;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    #booking-cta h2 {
+        font-size: 28px;
+    }
+    #booking-cta p {
+        font-size: 16px;
+    }
+    #booking-cta .btn-primary {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #booking-cta h2 {
+        font-size: 24px;
+    }
+    #booking-cta p {
+        font-size: 14px;
+    }
+    #booking-cta .btn-primary {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
+
+/* =========================
    FOOTER
 ========================= */
 #site-footer {
-    background-color: #000000; /* tumma tausta */
+    background-color:#222; /* tumma tausta */
     color: #fff; /* valkoinen teksti */
     text-align: center;
     padding: 40px 20px;

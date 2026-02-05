@@ -20,7 +20,7 @@
                 <li><a href="index.php#hero">Etusivu</a></li>
                 <li><a href="index.php#about">Meistä</a></li>
                 <li><a href="index.php#services">Palvelut</a></li>
-                <li><a href="booking.php">Ajanvaraus</a></li>
+                <li><a href="index.php#booking-cta">Ajanvaraus</a></li>
                 <li><a href="index.php#contact">Yhteystiedot</a></li>
             </ul>
         </nav>

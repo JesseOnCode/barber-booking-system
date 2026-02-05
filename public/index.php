@@ -40,6 +40,14 @@
     </div>
     </section>
 
+    <section id="booking-cta">
+    <div class="booking-cta-content">
+        <h2>Varaa aikasi helposti</h2>
+        <p>Valitse itsellesi sopiva aika ja varaa käynti nopeasti verkossa.</p>
+        <a href="login.php" class="btn-primary">Varaa aika nyt</a>
+    </div>
+    </section>
+
     <section id="contact">
     <div class="contact-content">
         <h2>Yhteystiedot</h2>
