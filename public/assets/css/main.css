@@ -70,6 +70,7 @@ body {
     background-color: #c97a2b;
     border: none;
     padding: 8px 16px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
     color: #000;
