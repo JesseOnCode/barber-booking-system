@@ -361,6 +361,115 @@ section {
         font-size: 13px;
     }
 }
+/* =========================
+   BOOKING SECTION
+========================= */
+#booking {
+    background-color: #222; /* tumma tausta kuten about */
+    color: #fff;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.booking-content {
+    max-width: 600px;
+    width: 100%;
+}
+
+#booking h2 {
+    font-size: 36px;
+    margin-bottom: 24px;
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.booking-form label {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+}
+
+.booking-form input[type="date"],
+.booking-form input[type="time"] {
+    color: #000;
+}
+
+.booking-form textarea {
+    resize: none;
+}
+
+.booking-form .btn-primary {
+    padding: 14px 28px;
+    background-color: #c97a2b;
+    color: #000;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.booking-form .btn-primary:hover {
+    background-color: #b86f26;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    #booking h2 {
+        font-size: 28px;
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .booking-form .btn-primary {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #booking h2 {
+        font-size: 24px;
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .booking-form .btn-primary {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
 
 
 /* =========================
