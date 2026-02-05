@@ -1,30 +1,25 @@
-<!DOCTYPE html>
-<html lang="fi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirjaudu sisään - BarberShop</title>
-    <link rel="stylesheet" href="assets/css/login.css">
-</head>
-<body>
+<?php require_once __DIR__ . '/../includes/header.php'; ?>
 
-<div class="login-container">
-    <h1>Kirjaudu sisään</h1>
-    <form class="login-form">
-        <label for="email">Sähköposti</label>
-        <input type="email" id="email" placeholder="Sähköposti" required>
+<main>
+    <section class="form-section">
+        <div class="form-container">
+            <h1>Kirjaudu sisään</h1>
+            <form class="form">
+                <label for="email">Sähköposti</label>
+                <input type="email" id="email" placeholder="Sähköposti" required>
 
-        <label for="password">Salasana</label>
-        <input type="password" id="password" placeholder="Salasana" required>
+                <label for="password">Salasana</label>
+                <input type="password" id="password" placeholder="Salasana" required>
 
-        <button type="submit" class="btn-login">Kirjaudu</button>
-    </form>
+                <button type="submit" class="btn-submit">Kirjaudu</button>
+            </form>
 
-    <p class="register-text">
-        Eikö sinulla ole vielä tunnusta? 
-        <a href="register.php">Rekisteröidy tästä</a>
-    </p>
-</div>
+            <p class="form-text">
+                Eikö sinulla ole vielä tunnusta? 
+                <a href="register.php">Rekisteröidy tästä</a>
+            </p>
+        </div>
+    </section>
+</main>
 
-</body>
-</html>
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
