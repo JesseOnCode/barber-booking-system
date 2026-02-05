@@ -2,8 +2,8 @@
 <footer id="site-footer">
     <div class="footer-content">
         <p>&copy; 2026 BarberShop</p>
-        <p>Osoite: Katu 123, 00100 Helsinki</p>
-        <p>Sähköposti: info@barbershop.fi | Puhelin: 040 123 4567</p>
+        <p>Osoite: Parturikuja 5, 70100 Kuopio</p>
+        <p>Sähköposti: infodemo@barbershop.fi | Puhelin: 040 123 4567</p>
     </div>
 </footer>
 
