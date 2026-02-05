@@ -2,12 +2,13 @@
 
 <main>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h1>Tervetuloa parturiimme</h1>
-            <p>Ammattitaitoinen parturi ajanvarauksella</p>
-        </div>
-    </section>
+    <section id="hero" class="hero">
+    <div class="hero-content">
+        <h1>Tervetuloa parturiimme</h1>
+        <p>Ammattitaitoinen parturi ajanvarauksella</p>
+        <a href="booking.php" class="btn-primary">Varaa aika</a>
+    </div>
+</section>
 
     <section id="about">
         <h2>Meistä</h2>

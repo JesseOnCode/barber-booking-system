@@ -123,7 +123,85 @@ section {
 .hero-content p {
     font-size: 20px;
 }
+/* =========================
+   HERO - RESPONSIVE
+========================= */
+.hero {
+    height: calc(100vh - 70px); /* koko ruutu navbarin alapuolella */
+    background-image: url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
 
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.6); /* tumma läpikuultava tausta tekstille */
+    color: #fff;
+    padding: 30px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 24px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 14px 28px;
+    background-color: #c97a2b;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #b86f26;
+}
+
+/* =========================
+   RESPONSIVE MEDIA QUERIES
+========================= */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 36px;
+    }
+    .hero-content p {
+        font-size: 18px;
+    }
+    .btn-primary {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 28px;
+    }
+    .hero-content p {
+        font-size: 16px;
+    }
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
 /* =========================
    ABOUT
 ========================= */
