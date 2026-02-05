@@ -25,6 +25,12 @@
             </ul>
         </nav>
 
+        <div class="nav-toggle">
+             <span></span>
+             <span></span>
+             <span></span>
+        </div>
+
         <div class="auth">
             <button class="btn-auth">Kirjaudu / Rekisteröidy</button>
         </div>

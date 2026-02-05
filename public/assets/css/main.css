@@ -222,3 +222,50 @@ section {
 #contact {
     background-color: #fff;
 }
+/* =========================
+   NAVBAR RESPONSIVE
+========================= */
+
+/* Hamburger-nappi piilotetaan pöytäkoneella */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+}
+
+/* Mobiililayout */
+@media (max-width: 768px) {
+    .main-nav ul {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: #000;
+        display: none; /* piilotetaan aluksi */
+        text-align: center;
+    }
+
+    .main-nav ul li {
+        margin: 15px 0;
+    }
+
+    .nav-toggle {
+        display: flex; /* näytetään hamburger mobiilissa */
+    }
+
+    /* Kun aktiivinen, näytetään linkit */
+    .main-nav.active ul {
+        display: flex;
+    }
+}
