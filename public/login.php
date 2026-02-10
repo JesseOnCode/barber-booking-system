@@ -1,15 +1,58 @@
+<?php
+session_start();
+require_once __DIR__ . '/../includes/config.php';
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if (empty($email) || empty($password)) {
+        $error = "Täytä kaikki kentät.";
+    } else {
+        
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['first_name'];
+
+            
+            header("Location: booking.php");
+            exit;
+        } else {
+            $error = "Sähköposti tai salasana väärin.";
+        }
+    }
+}
+?>
+
 <?php require_once __DIR__ . '/../includes/header.php'; ?>
+
+<link rel="stylesheet" href="assets/css/main.css">
 
 <main>
     <section class="form-section">
         <div class="form-container">
             <h1>Kirjaudu sisään</h1>
-            <form class="form">
+
+            
+            <?php if ($error): ?>
+                <div class="form-messages">
+                    <div class="form-error"><?= htmlspecialchars($error) ?></div>
+                </div>
+            <?php endif; ?>
+
+            <form class="form" method="POST" action="login.php">
                 <label for="email">Sähköposti</label>
-                <input type="email" id="email" placeholder="Sähköposti" required>
+                <input type="email" id="email" name="email" placeholder="Sähköposti" required>
 
                 <label for="password">Salasana</label>
-                <input type="password" id="password" placeholder="Salasana" required>
+                <input type="password" id="password" name="password" placeholder="Salasana" required>
 
                 <button type="submit" class="btn-submit">Kirjaudu</button>
             </form>
@@ -23,3 +66,4 @@
 </main>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+

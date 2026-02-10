@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -32,7 +37,13 @@
         </div>
 
         <div class="auth">
-            <a href="login.php" class="btn-auth">Kirjaudu / Rekisteröidy</a>
-        </div>
+    <?php if(isset($_SESSION['user_id'])): ?>
+        <span class="user-greeting">Hei, <?= htmlspecialchars($_SESSION['user_name']) ?></span>
+        <a href="logout.php" class="btn-auth">Kirjaudu ulos</a>
+    <?php else: ?>
+        <a href="login.php" class="btn-auth">Kirjaudu / Rekisteröidy</a>
+    <?php endif; ?>
+</div>
+
     </div>
 </header>
