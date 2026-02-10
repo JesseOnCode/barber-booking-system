@@ -469,6 +469,135 @@ section {
         font-size: 13px;
     }
 }
+/* =========================
+   FORM SECTION
+========================= */
+.form-section {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #222; /* tumma tausta kuten about osio */
+    color: #fff;
+}
+
+.form-container {
+    max-width: 500px;
+    width: 100%;
+    background-color: #000; /* musta laatikko */
+    padding: 30px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+/* Lomake */
+.form label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background-color: #111;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.form input::placeholder {
+    color: #888;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #c97a2b;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #b86f26;
+}
+
+.form-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.form-text a {
+    color: #c97a2b;
+    text-decoration: none;
+}
+
+.form-text a:hover {
+    text-decoration: underline;
+}
+
+/* Viestit */
+.form-messages {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-error {
+    background-color: #ffdddd;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.form-success {
+    background-color: #ddffdd;
+    color: #4f8a10;
+    border: 1px solid #4f8a10;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px 15px;
+    }
+
+    .btn-submit {
+        padding: 10px;
+    }
+
+    .form label {
+        font-size: 14px;
+    }
+
+    .form input {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 15px 10px;
+    }
+
+    .btn-submit {
+        padding: 8px;
+    }
+}
 
 
 
