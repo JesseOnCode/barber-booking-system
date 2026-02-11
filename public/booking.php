@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/csrf.php';
 
 // Tarkista kirjautuminen
 if (!isset($_SESSION['user_id'])) {
@@ -19,31 +20,44 @@ $success = '';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $service = $_POST['service'] ?? '';
-    $date    = $_POST['date'] ?? '';
-    $time    = $_POST['time'] ?? '';
-    $notes   = trim($_POST['notes'] ?? '');
-    $duration = $serviceDurations[$service] ?? 30;
-
-    if (empty($service) || empty($date) || empty($time)) {
-        $error = "Täytä kaikki pakolliset kentät.";
+    // Tarkista CSRF-token
+    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $error = "Virheellinen lomake. Yritä uudelleen.";
     } else {
-        try {
-            $stmt = $pdo->prepare("
-                INSERT INTO bookings (user_id, service, date, time, duration, notes)
-                VALUES (?, ?, ?, ?, ?, ?)
-            ");
-            $stmt->execute([
-                $_SESSION['user_id'],
-                $service,
-                $date,
-                $time,
-                $duration,
-                $notes
-            ]);
-            $success = "✅ Ajanvaraus onnistui!";
-        } catch (Exception $e) {
-            $error = "Ajanvarausta ei voitu tallentaa. Yritä uudelleen.";
+        $service = $_POST['service'] ?? '';
+        $date    = $_POST['date'] ?? '';
+        $time    = $_POST['time'] ?? '';
+        $notes   = trim($_POST['notes'] ?? '');
+        $duration = $serviceDurations[$service] ?? 30;
+
+        if (empty($service) || empty($date) || empty($time)) {
+            $error = "Täytä kaikki pakolliset kentät.";
+        } else {
+            // Tarkista että varaus on tulevaisuudessa
+            $bookingDateTime = new DateTime("$date $time");
+            $now = new DateTime();
+            
+            if ($bookingDateTime <= $now) {
+                $error = "Varaus tulee tehdä tulevaisuuteen.";
+            } else {
+                try {
+                    $stmt = $pdo->prepare("
+                        INSERT INTO bookings (user_id, service, date, time, duration, notes)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ");
+                    $stmt->execute([
+                        $_SESSION['user_id'],
+                        $service,
+                        $date,
+                        $time,
+                        $duration,
+                        $notes
+                    ]);
+                    $success = "✅ Ajanvaraus onnistui!";
+                } catch (Exception $e) {
+                    $error = "Ajanvarausta ei voitu tallentaa. Yritä uudelleen.";
+                }
+            }
         }
     }
 }
@@ -69,11 +83,13 @@ require_once __DIR__ . '/../includes/header.php';
             <?php endif; ?>
 
             <form class="form" method="POST" action="booking.php">
+                <?php csrf_field(); ?>
+                
                 <label for="service">Valitse palvelu</label>
                 <select id="service" name="service" required>
                     <option value="">-- Valitse palvelu --</option>
                     <?php foreach($serviceDurations as $s => $d): ?>
-                        <option value="<?= $s ?>"><?= $s ?> - <?= $d ?> min</option>
+                        <option value="<?= htmlspecialchars($s) ?>"><?= htmlspecialchars($s) ?> - <?= $d ?> min</option>
                     <?php endforeach; ?>
                 </select>
 
@@ -123,11 +139,9 @@ function fetchAvailableTimes() {
         });
 }
 
-// Päivämäärän tai palvelun vaihtuessa päivitys
 dateInput.addEventListener('change', fetchAvailableTimes);
 serviceInput.addEventListener('change', fetchAvailableTimes);
 
-// Alussa näytä tämän päivän vapaat ajat
 fetchAvailableTimes();
 </script>
 

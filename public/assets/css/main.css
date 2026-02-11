@@ -528,7 +528,6 @@ section {
     }
 }
 
-
 /* =========================
    FORM SECTION
 ========================= */
@@ -882,37 +881,5 @@ section {
         width: 100%;
         text-align: center;
         margin-bottom: 4px;
-    }
-}
-/* ===============================
-   Booking form: vapaat ajat napit
-   =============================== */
-.available-times {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.time-slot {
-    padding: 8px 12px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.time-slot:hover,
-.time-slot.selected {
-    background-color: #555;
-}
-
-@media screen and (max-width: 600px) {
-    .time-slot {
-        flex: 1 1 45%;
-        font-size: 0.9rem;
-        padding: 8px;
     }
 }

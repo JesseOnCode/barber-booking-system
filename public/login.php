@@ -1,31 +1,34 @@
 <?php
 session_start();
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/csrf.php';
 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    if (empty($email) || empty($password)) {
-        $error = "Täytä kaikki kentät.";
+    // Tarkista CSRF-token
+    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $error = "Virheellinen lomake. Yritä uudelleen.";
     } else {
-        
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
 
-        if ($user && password_verify($password, $user['password'])) {
-            
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['first_name'];
-
-            
-            header("Location: booking.php");
-            exit;
+        if (empty($email) || empty($password)) {
+            $error = "Täytä kaikki kentät.";
         } else {
-            $error = "Sähköposti tai salasana väärin.";
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['first_name'];
+
+                header("Location: booking.php");
+                exit;
+            } else {
+                $error = "Sähköposti tai salasana väärin.";
+            }
         }
     }
 }
@@ -40,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-container">
             <h1>Kirjaudu sisään</h1>
 
-            
             <?php if ($error): ?>
                 <div class="form-messages">
                     <div class="form-error"><?= htmlspecialchars($error) ?></div>
@@ -48,6 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <form class="form" method="POST" action="login.php">
+                <?php csrf_field(); ?>
+                
                 <label for="email">Sähköposti</label>
                 <input type="email" id="email" name="email" placeholder="Sähköposti" required>
 
@@ -66,4 +70,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </main>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
-
