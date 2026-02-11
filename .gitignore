@@ -1,0 +1,28 @@
+# Ympäristömuuttujat - ÄLÄ KOSKAAN LÄHETÄ GITHUBIIN!
+.env
+
+# Lokitiedostot
+logs/*.log
+!logs/.gitkeep
+
+# Väliaikaiset tiedostot
+*.tmp
+*.cache
+
+# Käyttöjärjestelmän tiedostot
+.DS_Store
+Thumbs.db
+
+# IDE-tiedostot
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules
+node_modules/
+package-lock.json
