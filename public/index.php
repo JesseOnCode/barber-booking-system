@@ -41,10 +41,16 @@
     </section>
 
     <section id="booking-cta">
-    <div class="booking-cta-content">
-        <h2>Varaa aikasi helposti</h2>
-        <p>Valitse itsellesi sopiva aika ja varaa käynti nopeasti verkossa.</p>
-        <a href="login.php" class="btn-primary">Varaa aika nyt</a>
+    <div class="container">
+        <h2>Varaa aika nyt!</h2>
+
+        <?php if(isset($_SESSION['user_id'])): ?>
+            <!-- Käyttäjä kirjautunut -->
+            <a href="booking.php" class="btn-primary">Varaa aika nyt</a>
+        <?php else: ?>
+            <!-- Käyttäjä ei kirjautunut -->
+            <a href="login.php" class="btn-primary">Varaa aika nyt</a>
+        <?php endif; ?>
     </div>
     </section>
 

@@ -2,11 +2,18 @@
 session_start();
 require_once __DIR__ . '/../includes/config.php';
 
-// Tarkista, että käyttäjä on kirjautunut
+// Tarkista kirjautuminen
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
+
+$serviceDurations = [
+    "Hiustenleikkaus" => 30,
+    "Parranleikkaus" => 15,
+    "Koneajo" => 20,
+    "Hiustenleikkaus + Parranleikkaus" => 45
+];
 
 $success = '';
 $error = '';
@@ -16,23 +23,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date    = $_POST['date'] ?? '';
     $time    = $_POST['time'] ?? '';
     $notes   = trim($_POST['notes'] ?? '');
+    $duration = $serviceDurations[$service] ?? 30;
 
     if (empty($service) || empty($date) || empty($time)) {
         $error = "Täytä kaikki pakolliset kentät.";
     } else {
         try {
             $stmt = $pdo->prepare("
-                INSERT INTO bookings (user_id, service, date, time, notes)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO bookings (user_id, service, date, time, duration, notes)
+                VALUES (?, ?, ?, ?, ?, ?)
             ");
             $stmt->execute([
                 $_SESSION['user_id'],
                 $service,
                 $date,
                 $time,
+                $duration,
                 $notes
             ]);
-
             $success = "✅ Ajanvaraus onnistui!";
         } catch (Exception $e) {
             $error = "Ajanvarausta ei voitu tallentaa. Yritä uudelleen.";
@@ -64,17 +72,17 @@ require_once __DIR__ . '/../includes/header.php';
                 <label for="service">Valitse palvelu</label>
                 <select id="service" name="service" required>
                     <option value="">-- Valitse palvelu --</option>
-                    <option value="Hiustenleikkaus">Hiustenleikkaus - 25€</option>
-                    <option value="Parranleikkaus">Parranleikkaus - 15€</option>
-                    <option value="Koneajo">Koneajo - 20€</option>
-                    <option value="Hiustenleikkaus + Parranleikkaus">Hiustenleikkaus + Parranleikkaus - 35€</option>
+                    <?php foreach($serviceDurations as $s => $d): ?>
+                        <option value="<?= $s ?>"><?= $s ?> - <?= $d ?> min</option>
+                    <?php endforeach; ?>
                 </select>
 
                 <label for="date">Päivämäärä</label>
-                <input type="date" id="date" name="date" required>
+                <input type="date" id="date" name="date" value="<?= date('Y-m-d') ?>" required>
 
-                <label for="time">Aika</label>
-                <input type="time" id="time" name="time" required>
+                <label for="available-times">Valitse aika</label>
+                <div id="available-times" class="available-times"></div>
+                <input type="hidden" id="time" name="time" required>
 
                 <label for="notes">Lisätiedot</label>
                 <textarea id="notes" name="notes" rows="4" placeholder="Kirjoita lisätietoja..."></textarea>
@@ -85,5 +93,42 @@ require_once __DIR__ . '/../includes/header.php';
     </section>
 </main>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<script>
+const dateInput = document.querySelector('#date');
+const serviceInput = document.querySelector('#service');
+const availableContainer = document.querySelector('#available-times');
+const timeInput = document.querySelector('#time');
 
+function fetchAvailableTimes() {
+    const date = dateInput.value;
+    const service = serviceInput.value;
+    if(!service) return;
+
+    fetch(`get_available_times.php?date=${date}&service=${encodeURIComponent(service)}`)
+        .then(res => res.json())
+        .then(times => {
+            availableContainer.innerHTML = '';
+            times.forEach(t => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = t;
+                btn.classList.add('time-slot');
+                btn.addEventListener('click', () => {
+                    timeInput.value = t;
+                    document.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                });
+                availableContainer.appendChild(btn);
+            });
+        });
+}
+
+// Päivämäärän tai palvelun vaihtuessa päivitys
+dateInput.addEventListener('change', fetchAvailableTimes);
+serviceInput.addEventListener('change', fetchAvailableTimes);
+
+// Alussa näytä tämän päivän vapaat ajat
+fetchAvailableTimes();
+</script>
+
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
