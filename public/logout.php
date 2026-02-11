@@ -1,6 +1,21 @@
 <?php
+/**
+ * Käyttäjän uloskirjautuminen
+ * 
+ * Tuhoaa käyttäjän session ja ohjaa takaisin etusivulle.
+ * 
+ * @package BarberShop
+ * @author Jesse
+ */
+
 session_start();
-session_unset(); 
-session_destroy(); 
-header("Location: index.php"); 
+
+// Tyhjennä kaikki session-muuttujat
+session_unset();
+
+// Tuhoa sessio kokonaan
+session_destroy();
+
+// Ohjaa käyttäjä etusivulle
+header("Location: index.php");
 exit;

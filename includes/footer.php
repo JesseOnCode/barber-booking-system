@@ -1,20 +1,36 @@
-<!-- FOOTER -->
+<?php
+/**
+ * Sivuston footer-komponentti
+ * 
+ * Sisältää yhteystiedot ja mobiilinavigaation toggle-skriptin.
+ * 
+ * @package BarberShop
+ * @author Jesse
+ */
+?>
+
+<!-- Footer -->
 <footer id="site-footer">
     <div class="footer-content">
-        <p>&copy; 2026 BarberShop</p>
+        <p>&copy; <?= date('Y') ?> BarberShop - Kaikki oikeudet pidätetään</p>
         <p>Osoite: Parturikuja 5, 70100 Kuopio</p>
         <p>Sähköposti: infodemo@barbershop.fi | Puhelin: 040 123 4567</p>
     </div>
 </footer>
 
-<!-- NAVBAR TOGGLE SCRIPT -->
+<!-- Mobiilinavigaation toggle-skripti -->
 <script>
+/**
+ * Mobiilinavigaation avaus/sulkeminen
+ */
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.main-nav');
 
-toggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-});
+if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+    });
+}
 </script>
 
 </body>
