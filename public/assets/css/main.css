@@ -352,3 +352,132 @@ section {
         font-size: 16px;
     }
 }
+/* =========================
+   MOBILE / DESKTOP NÄKYVYYS
+========================= */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: flex;
+}
+
+/* =========================
+   RESPONSIVE NAVIGATION FIX
+========================= */
+@media (max-width: 768px) {
+    .site-header .container {
+        justify-content: space-between;
+        position: relative;
+    }
+    
+    /* Piilota desktop auth */
+    .desktop-only {
+        display: none !important;
+    }
+    
+    /* Näytä mobile linkit navigaatiossa */
+    .mobile-only {
+        display: block;
+    }
+    
+    /* Navigaation tyylitys mobiilissa */
+    .main-nav ul {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: #000;
+        display: none;
+        text-align: center;
+        padding: 20px 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+
+    .main-nav ul li {
+        margin: 0;
+        padding: 12px 0;
+        border-bottom: 1px solid #333;
+    }
+    
+    .main-nav ul li:last-child {
+        border-bottom: none;
+    }
+    
+    .main-nav ul li a {
+        display: block;
+        padding: 8px 0;
+        font-size: 16px;
+    }
+
+    .nav-toggle {
+        display: flex;
+        z-index: 1001;
+    }
+
+    .main-nav.active ul {
+        display: flex;
+    }
+}
+
+/* Profiili-nappi erikoistyyli */
+.btn-profile {
+    background-color: #555 !important;
+    margin-right: 8px;
+}
+
+.btn-profile:hover {
+    background-color: #666 !important;
+}
+
+/* Mobile user greeting tyyli */
+.mobile-user-greeting {
+    background-color: #c97a2b;
+    color: #000;
+    font-weight: bold;
+    padding: 12px 0 !important;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #b86f26 !important;
+}
+
+.mobile-user-greeting span {
+    font-size: 14px;
+}
+/* =========================
+   AIKA-NAPIT (TIME SLOTS)
+========================= */
+.available-times {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.time-slot {
+    padding: 12px;
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.time-slot:hover {
+    background-color: #444;
+    border-color: #c97a2b;
+    transform: translateY(-2px);
+}
+
+.time-slot.selected {
+    background-color: #c97a2b;
+    color: #000;
+    border-color: #c97a2b;
+}

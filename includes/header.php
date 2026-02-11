@@ -34,6 +34,13 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="index.php">Barber<span>Shop</span></a>
         </div>
 
+        <!-- Mobiilinavigaation toggle -->
+        <div class="nav-toggle">
+             <span></span>
+             <span></span>
+             <span></span>
+        </div>
+
         <!-- Päänavigaatio -->
         <nav class="main-nav">
             <ul>
@@ -42,20 +49,25 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li><a href="index.php#services">Palvelut</a></li>
                 <li><a href="index.php#booking-cta">Ajanvaraus</a></li>
                 <li><a href="index.php#contact">Yhteystiedot</a></li>
+                
+               <!-- Käyttäjän linkit mobiilissa -->
+                <?php if(isset($_SESSION['user_id'])): ?>
+                    <li class="mobile-only mobile-user-greeting">
+                        <span>Kirjautunut: <?= htmlspecialchars($_SESSION['user_name']) ?></span>
+                    </li>
+                    <li class="mobile-only"><a href="profile.php">👤 Profiili</a></li>
+                    <li class="mobile-only"><a href="logout.php">🚪 Kirjaudu ulos</a></li>
+                <?php else: ?>
+                    <li class="mobile-only"><a href="login.php">🔐 Kirjaudu</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
 
-        <!-- Mobiilinavigaation toggle -->
-        <div class="nav-toggle">
-             <span></span>
-             <span></span>
-             <span></span>
-        </div>
-
-        <!-- Käyttäjän kirjautumistiedot / kirjautumisnappi -->
-        <div class="auth">
+        <!-- Käyttäjän kirjautumistiedot (desktop) -->
+        <div class="auth desktop-only">
             <?php if(isset($_SESSION['user_id'])): ?>
                 <span class="user-greeting">Hei, <?= htmlspecialchars($_SESSION['user_name']) ?></span>
+                <a href="profile.php" class="btn-auth btn-profile">Profiili</a>
                 <a href="logout.php" class="btn-auth">Kirjaudu ulos</a>
             <?php else: ?>
                 <a href="login.php" class="btn-auth">Kirjaudu / Rekisteröidy</a>

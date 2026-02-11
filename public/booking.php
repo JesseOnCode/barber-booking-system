@@ -19,6 +19,12 @@ $serviceDurations = [
 $success = '';
 $error = '';
 
+// Näytä kirjautumisonnistumisviesti
+if (isset($_SESSION['login_success'])) {
+    $success = "✅ Tervetuloa, " . htmlspecialchars($_SESSION['user_name']) . "! Olet nyt kirjautunut sisään. Voit varata ajan alta.";
+    unset($_SESSION['login_success']); // Poista viesti jotta se ei näy uudelleen
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Tarkista CSRF-token
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
@@ -66,21 +72,21 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <main>
-    <section id="booking">
-        <div class="form-container">
-            <h2>Varaa aika</h2>
-
-            <!-- Viestit -->
+    <!-- Viestit ylhäällä ennen lomaketta -->
+    <?php if($error || $success): ?>
+        <div style="padding: 20px; max-width: 500px; margin: 90px auto 0;">
             <?php if($error): ?>
-                <div class="form-messages">
-                    <div class="form-error"><?= htmlspecialchars($error) ?></div>
-                </div>
+                <div class="form-error"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
             <?php if($success): ?>
-                <div class="form-messages">
-                    <div class="form-success"><?= htmlspecialchars($success) ?></div>
-                </div>
+                <div class="form-success"><?= htmlspecialchars($success) ?></div>
             <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Varaa aika</h2>
 
             <form class="form" method="POST" action="booking.php">
                 <?php csrf_field(); ?>
