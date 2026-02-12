@@ -23,11 +23,55 @@ if (!isset($_SESSION['user_id'])) {
 
 $success = '';
 $error = '';
+$passwordSuccess = '';
+$passwordError = '';
 
 // Hae käyttäjän nykyiset tiedot
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Käsittele salasanan vaihto
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
+    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $passwordError = "Virheellinen lomake. Yritä uudelleen.";
+    } else {
+        $currentPassword = $_POST['current_password'] ?? '';
+        $newPassword = $_POST['new_password'] ?? '';
+        $confirmPassword = $_POST['confirm_password'] ?? '';
+        
+        // Validointi
+        if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+            $passwordError = "Täytä kaikki kentät.";
+        } elseif ($newPassword !== $confirmPassword) {
+            $passwordError = "Uudet salasanat eivät täsmää.";
+        } elseif (strlen($newPassword) < 8) {
+            $passwordError = "Uuden salasanan tulee olla vähintään 8 merkkiä.";
+        } else {
+            // Tarkista nykyinen salasana
+            if (password_verify($currentPassword, $user['password'])) {
+                // Päivitä salasana
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                
+                try {
+                    $stmt = $pdo->prepare("
+                        UPDATE users 
+                        SET password = ?
+                        WHERE id = ?
+                    ");
+                    $stmt->execute([$hashedPassword, $_SESSION['user_id']]);
+                    
+                    $passwordSuccess = "✅ Salasana vaihdettu onnistuneesti!";
+                    
+                } catch (Exception $e) {
+                    $passwordError = "Salasanan vaihto epäonnistui. Yritä uudelleen.";
+                }
+            } else {
+                $passwordError = "Nykyinen salasana on väärin.";
+            }
+        }
+    }
+}
 
 // Käsittele profiilin päivitys
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
@@ -153,6 +197,9 @@ require_once __DIR__ . '/../includes/header.php';
                 <button class="tab-button" onclick="openTab(event, 'history')">
                     📋 Historia (<?= count($pastBookings) ?>)
                 </button>
+                <button class="tab-button" onclick="openTab(event, 'password')">
+                    🔑 Vaihda salasana
+                </button>
             </div>
             
             <!-- Välilehti 1: Omat tiedot -->
@@ -271,6 +318,53 @@ require_once __DIR__ . '/../includes/header.php';
                 <?php endif; ?>
             </div>
             
+            <!-- Välilehti 4: Salasanan vaihto -->
+            <div id="password" class="tab-content">
+                <h2>Vaihda salasana</h2>
+                
+                <!-- Salasanan vaihdon viestit -->
+                <?php if($passwordError): ?>
+                    <div class="form-messages">
+                        <div class="form-error"><?= htmlspecialchars($passwordError) ?></div>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if($passwordSuccess): ?>
+                    <div class="form-messages">
+                        <div class="form-success"><?= htmlspecialchars($passwordSuccess) ?></div>
+                    </div>
+                <?php endif; ?>
+                
+                <form class="form" method="POST" action="profile.php">
+                    <?php csrf_field(); ?>
+                    
+                    <label for="current_password">Nykyinen salasana *</label>
+                    <input type="password" 
+                           id="current_password" 
+                           name="current_password" 
+                           placeholder="Nykyinen salasanasi"
+                           required>
+                    
+                    <label for="new_password">Uusi salasana *</label>
+                    <input type="password" 
+                           id="new_password" 
+                           name="new_password" 
+                           placeholder="Vähintään 8 merkkiä"
+                           minlength="8"
+                           required>
+                    
+                    <label for="confirm_password">Vahvista uusi salasana *</label>
+                    <input type="password" 
+                           id="confirm_password" 
+                           name="confirm_password" 
+                           placeholder="Kirjoita uusi salasana uudelleen"
+                           minlength="8"
+                           required>
+                      
+                    <button type="submit" name="change_password" class="btn-submit">Vaihda salasana</button>
+                </form>
+            </div>               
+
             <p class="form-text" style="margin-top: 30px; text-align: center;">
                 <a href="index.php">← Takaisin etusivulle</a> | 
                 <a href="booking.php">📅 Varaa uusi aika</a>

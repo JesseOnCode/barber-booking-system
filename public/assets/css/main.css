@@ -116,6 +116,12 @@ main {
     margin-top: 70px;
 }
 
+/* Poista margin form-section sivuilla */
+.form-section ~ main,
+main:has(.form-section) {
+    margin-top: 0;
+}
+
 section {
     height: 100vh;
     display: flex;
@@ -215,7 +221,10 @@ section {
     background-position: center;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Takaisin centeriin */
+    padding-top: 70px;
+    padding-bottom: 40px;
+    margin-top: -5px;
 }
 
 .form-container {
@@ -492,6 +501,7 @@ section {
     padding: 40px 30px;
     border-radius: 8px;
     color: #fff;
+    min-height: 700px; /* Kiinteä korkeus pitää laatikon samassa koossa */
 }
 
 .profile-dashboard h1 {
@@ -586,4 +596,59 @@ section {
         border-left-color: #c97a2b;
         border-bottom-color: #333;
     }
+}
+
+/* =========================
+   SALASANAN VAIHTO
+========================= */
+.password-requirements {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #c97a2b;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.password-requirements p {
+    margin: 0 0 10px 0;
+    color: #c97a2b;
+    font-weight: bold;
+}
+
+.password-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.password-requirements li {
+    padding: 5px 0;
+    color: #ddd;
+    font-size: 14px;
+}
+
+/* Salasanan näyttäminen/piilottaminen (valinnainen tuleva ominaisuus) */
+.password-toggle {
+    position: relative;
+}
+
+.password-toggle input {
+    padding-right: 45px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #c97a2b;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.password-toggle-btn:hover {
+    color: #b86f26;
 }
