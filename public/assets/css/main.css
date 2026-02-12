@@ -481,3 +481,109 @@ section {
     color: #000;
     border-color: #c97a2b;
 }
+
+/* =========================
+   PROFIILI DASHBOARD
+========================= */
+.profile-dashboard {
+    max-width: 900px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 40px 30px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.profile-dashboard h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #c97a2b;
+}
+
+/* Välilehdet */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    background-color: transparent;
+    color: #999;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 150px;
+}
+
+.tab-button:hover {
+    color: #c97a2b;
+}
+
+.tab-button.active {
+    color: #c97a2b;
+    border-bottom-color: #c97a2b;
+}
+
+/* Välilehden sisältö */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-content h2 {
+    color: #c97a2b;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Responsiivisuus */
+@media (max-width: 768px) {
+    .profile-dashboard {
+        padding: 30px 20px;
+    }
+    
+    .profile-dashboard h1 {
+        font-size: 24px;
+    }
+    
+    .tabs {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .tab-button {
+        border-bottom: 1px solid #333;
+        border-left: 3px solid transparent;
+        text-align: left;
+        min-width: auto;
+    }
+    
+    .tab-button.active {
+        border-left-color: #c97a2b;
+        border-bottom-color: #333;
+    }
+}
