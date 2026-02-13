@@ -158,7 +158,12 @@ $now = new DateTime();
 foreach ($bookings as $booking) {
     $bookingDateTime = new DateTime($booking['date'] . ' ' . $booking['time']);
     
-    if ($bookingDateTime > $now && $booking['status'] !== 'cancelled') {
+    // Lisää varauksen kesto lopetusaikaan
+    $bookingEndTime = clone $bookingDateTime;
+    $bookingEndTime->modify("+{$booking['duration']} minutes");
+    
+    // Jos varaus ei ole vielä loppunut JA ei ole peruutettu -> Tuleva
+    if ($bookingEndTime > $now && $booking['status'] !== 'cancelled') {
         $upcomingBookings[] = $booking;
     } else {
         $pastBookings[] = $booking;

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['first_name'];
-                $_SESSION['login_success'] = true; // Aseta onnistumisviesti
+                $_SESSION['is_admin'] = $user['is_admin']; // Tallenna admin-status
 
                 header("Location: booking.php");
                 exit;
@@ -50,6 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
 
+            <!-- Demo-tunnukset -->
+            <div class="demo-credentials">
+                <p><strong>🎯 Demo-tunnukset:</strong></p>
+                <p><strong>Admin:</strong> admin@demo.com / password</p>
+                <p><strong>Käyttäjä:</strong> käytä omia tunnuksia</p>
+            </div>
+            
             <form class="form" method="POST" action="login.php">
                 <?php csrf_field(); ?>
                 

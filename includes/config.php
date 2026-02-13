@@ -1,4 +1,7 @@
 <?php
+// Aseta aikavyöhyke Suomeen
+date_default_timezone_set('Europe/Helsinki');
+
 /**
  * Tietokantayhteyden konfiguraatio
  * 
