@@ -22,14 +22,14 @@
     </div>
     </section>
 
-    <section id="services">
+   <section id="services">
     <div class="services-content">
-        <h2>Palvelut ja hinnat</h2>
+        <h2>Hinnasto</h2>
         <ul class="service-list">
-            <li>Hiustenleikkaus - 30 min</li>
-            <li>Parranleikkaus - 20 min</li>
-            <li>Koneajo - 15 min</li>
-            <li>Hiustenleikkaus + Parranleikkaus - 45 min</li>
+            <li>Hiustenleikkaus - 25€</li>
+            <li>Parranleikkaus - 15€</li>
+            <li>Koneajo - 12€</li>
+            <li>Hiustenleikkaus + Parranleikkaus - 35€</li>
         </ul>
     </div>
     </section>
