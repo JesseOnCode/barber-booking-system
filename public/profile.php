@@ -229,13 +229,13 @@ require_once __DIR__ . '/../includes/header.php';
                            value="<?= htmlspecialchars($user['last_name']) ?>" 
                            required>
                     
-                    <label for="email">Sähköposti</label>
+                   <label for="email">Sähköposti</label>
                     <input type="email" 
                            id="email" 
                            value="<?= htmlspecialchars($user['email']) ?>" 
                            disabled
-                           style="opacity: 0.6; cursor: not-allowed;">
-                    <small style="color: #999; font-size: 12px;">Sähköpostia ei voi muuttaa</small>
+                           style="opacity: 0.9; cursor: not-allowed; max-width: 500px; width: 100%; display: block; margin: 0 auto 16px auto; color: #ddd;">
+                    <small style="color: #999; font-size: 12px; display: block; max-width: 500px; margin: 0 auto; text-align: left;">Sähköpostia ei voi muuttaa</small>
                     
                     <button type="submit" name="update_profile" class="btn-submit">Tallenna muutokset</button>
                 </form>

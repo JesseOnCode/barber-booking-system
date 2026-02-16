@@ -26,18 +26,10 @@
     <div class="services-content">
         <h2>Palvelut ja hinnat</h2>
         <ul class="service-list">
-            <li>
-                <strong>Miesten hiustenleikkaus</strong>  25€
-            </li>
-            <li>
-                <strong>Parranleikkaus</strong>  15€
-            </li>
-            <li>
-                <strong>Hiusten ja parran yhdistelmä</strong>  35€
-            </li>
-            <li>
-                <strong>Hiusten pesu ja föönaus</strong>  10€
-            </li>
+            <li>Hiustenleikkaus - 30 min</li>
+            <li>Parranleikkaus - 20 min</li>
+            <li>Koneajo - 15 min</li>
+            <li>Hiustenleikkaus + Parranleikkaus - 45 min</li>
         </ul>
     </div>
     </section>

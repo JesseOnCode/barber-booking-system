@@ -248,6 +248,9 @@ section {
 .form label {
     display: block;
     margin-bottom: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
     text-align: left;
     font-weight: bold;
 }
@@ -256,12 +259,12 @@ section {
 .form select,
 .form textarea {
     width: 100%;
+    max-width: 500px;
     padding: 10px;
     margin-bottom: 16px;
     border-radius: 6px;
     border: none;
 }
-
 /* Onnistumis- ja virheviestit */
 .form-messages {
     margin-bottom: 20px;
@@ -1167,6 +1170,9 @@ section {
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
 }
 
 .btn-submit:hover {
