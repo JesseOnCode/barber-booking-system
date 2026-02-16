@@ -752,21 +752,10 @@ section {
     border-radius: 12px;
     border: 2px solid #333;
     display: flex;
-    flex-direction: column; /* Muutettu pystysuunnaksi */
+    flex-direction: column;
     align-items: center;
-    text-align: center; /* Keskitä teksti */
+    text-align: center;
     gap: 15px;
-    transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(201, 122, 43, 0.3);
-    border-color: #c97a2b;
-}
-
-.stat-icon {
-    font-size: 48px;
 }
 
 .stat-info {
@@ -778,7 +767,7 @@ section {
 
 .stat-info h3 {
     font-size: 14px;
-    color: #999;
+    color: #c97a2b;
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -794,7 +783,7 @@ section {
 
 .stat-label {
     font-size: 14px;
-    color: #ccc;
+    color: #c97a2b;
     margin: 0;
 }
 
@@ -1146,3 +1135,159 @@ section {
         padding: 10px 20px;
     }
 }
+
+/* =========================
+   ADMIN VÄLILEHDET
+========================= */
+.admin-tabs {
+    display: flex;
+    gap: 0;
+    margin: 40px 0 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.admin-tab-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    color: #999;
+    border: none;
+    border-right: 1px solid #333;
+    padding: 18px 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-tab-btn:last-child {
+    border-right: none;
+}
+
+.admin-tab-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #c97a2b;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.admin-tab-btn:hover {
+    color: #c97a2b;
+    background: linear-gradient(135deg, #333 0%, #222 100%);
+}
+
+.admin-tab-btn.active {
+    color: #fff;
+    background: linear-gradient(135deg, #c97a2b 0%, #b86f26 100%);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.admin-tab-btn.active::before {
+    transform: scaleX(1);
+}
+
+.admin-tab-content {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    animation: fadeInTab 0.4s ease;
+}
+
+.admin-tab-content.active {
+    display: block;
+}
+
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.admin-tab-content h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #c97a2b;
+    border-bottom: 2px solid #c97a2b;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* GDPR-huomio */
+.gdpr-notice {
+    background-color: rgba(255, 152, 0, 0.2);
+    border-left: 4px solid #ff9800;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.gdpr-notice strong {
+    color: #ff9800;
+}
+
+/* GDPR-poisto nappi */
+.btn-gdpr {
+    background-color: #ff5722;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-gdpr:hover {
+    background-color: #e64a19;
+    transform: translateY(-2px);
+}
+
+/* Responsiivisuus välilehdille */
+@media (max-width: 768px) {
+    .admin-tabs {
+        flex-direction: column;
+        border-radius: 10px;
+    }
+    
+    .admin-tab-btn {
+        text-align: left;
+        border-right: none;
+        border-bottom: 1px solid #333;
+        padding: 15px 20px;
+    }
+    
+    .admin-tab-btn:last-child {
+        border-bottom: none;
+    }
+    
+    .admin-tab-btn::before {
+        width: 4px;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+    }
+    
+    .admin-tab-content {
+        padding: 20px 15px;
+    }
+}
+

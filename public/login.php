@@ -20,12 +20,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-           if ($user && password_verify($password, $user['password'])) {
+         if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['first_name'];
+                $_SESSION['user_email'] = $user['email']; // Tallenna email
                 $_SESSION['is_admin'] = $user['is_admin']; // Tallenna admin-status
-
-                header("Location: booking.php");
+                
+                // Ohjaa admin admin-paneeliin, muut varaussivulle
+                if ($user['is_admin']) {
+                    header("Location: admin/index.php");
+                } else {
+                    header("Location: booking.php");
+                }
                 exit;
             } else {
                 $error = "Sähköposti tai salasana väärin.";

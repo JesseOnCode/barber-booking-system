@@ -35,6 +35,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $passwordError = "Virheellinen lomake. Yritä uudelleen.";
+    } elseif ($user['email'] === 'admin@demo.com') {
+        $passwordError = "⚠️ Demo-tunnuksilla ei voi vaihtaa salasanaa.";
     } else {
         $currentPassword = $_POST['current_password'] ?? '';
         $newPassword = $_POST['new_password'] ?? '';
@@ -114,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_booking'])) {
         
         $stmt = $pdo->prepare("
             SELECT * FROM bookings 
-            WHERE id = ? AND user_id = ? AND status = 'pending'
+            WHERE id = ? AND user_id = ?
         ");
         $stmt->execute([$bookingId, $_SESSION['user_id']]);
         $booking = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -343,12 +345,21 @@ require_once __DIR__ . '/../includes/header.php';
                 <form class="form" method="POST" action="profile.php">
                     <?php csrf_field(); ?>
                     
+                    <?php if ($user['email'] === 'admin@demo.com'): ?>
+                        <div style="background-color: rgba(255, 152, 0, 0.2); border: 2px solid #ff9800; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                            <p style="margin: 0; color: #fff;">
+                                <strong style="color: #ff9800;">⚠️ Demo-tili:</strong> 
+                                Salasanan vaihto on estetty demo-tunnuksilla turvallisuussyistä.
+                            </p>
+                        </div>
+                    <?php endif; ?>
+                    
                     <label for="current_password">Nykyinen salasana *</label>
                     <input type="password" 
                            id="current_password" 
                            name="current_password" 
                            placeholder="Nykyinen salasanasi"
-                           required>
+                           <?= $user['email'] === 'admin@demo.com' ? 'disabled' : 'required' ?>>
                     
                     <label for="new_password">Uusi salasana *</label>
                     <input type="password" 
@@ -356,7 +367,7 @@ require_once __DIR__ . '/../includes/header.php';
                            name="new_password" 
                            placeholder="Vähintään 8 merkkiä"
                            minlength="8"
-                           required>
+                           <?= $user['email'] === 'admin@demo.com' ? 'disabled' : 'required' ?>>
                     
                     <label for="confirm_password">Vahvista uusi salasana *</label>
                     <input type="password" 
@@ -364,9 +375,14 @@ require_once __DIR__ . '/../includes/header.php';
                            name="confirm_password" 
                            placeholder="Kirjoita uusi salasana uudelleen"
                            minlength="8"
-                           required>
+                           <?= $user['email'] === 'admin@demo.com' ? 'disabled' : 'required' ?>>
                       
-                    <button type="submit" name="change_password" class="btn-submit">Vaihda salasana</button>
+                    <button type="submit" 
+                            name="change_password" 
+                            class="btn-submit"
+                            <?= $user['email'] === 'admin@demo.com' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : '' ?>>
+                        Vaihda salasana
+                    </button>
                 </form>
             </div>               
 
