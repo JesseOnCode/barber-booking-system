@@ -18,7 +18,7 @@ Projekti on nähtävissä live-demona osoitteessa:
 
 **Admin-tunnus:**
 - Sähköposti: `admin@demo.com`
-- Salasana: `demo123`
+- Salasana: `password`
 
 **Tavallinen käyttäjä:**
 - Voit luoda oman tunnuksen rekisteröitymällä
@@ -149,7 +149,7 @@ Tämän projektin aikana opin:
 Sovellus on testattu:
 - Chrome, Firefox, Safari, Edge -selaimilla
 - Mobiililaitteilla (iOS & Android)
-- Eri näyttökokoilla (320px - 1920px)
+- Eri näyttöillä (320px - 1920px)
 - Webhotelliympäristössä
 - Kaikki lomakkeet ja validoinnit
 - Admin-paneelin toiminnallisuudet
@@ -169,7 +169,7 @@ Sovellus on testattu:
 
 ## Yhteystiedot
 
-Jos sinulla on kysyttävää projektista tai haluat keskustella yhteistyöstä, ota yhteyttä GitHubin kautta tai LinkedIn-profiilini välityksellä.
+Jos sinulla on kysyttävää projektista tai haluat keskustella yhteistyöstä, ota yhteyttä portfolioni kautta tai LinkedIn-profiilini välityksellä.
 
 ---
 
