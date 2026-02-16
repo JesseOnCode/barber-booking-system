@@ -1,4 +1,4 @@
-# 💈 BarberShop - Ajanvarausjärjestelmä
+# BarberShop - Ajanvarausjärjestelmä
 
 Moderni parturi-varausjärjestelmä, joka tarjoaa käyttäjille helpon tavan varata aikoja verkossa. Projekti on osa ohjelmistokehittäjäopintojani ja portfolio-työtäni.
 
@@ -9,22 +9,50 @@ Moderni parturi-varausjärjestelmä, joka tarjoaa käyttäjille helpon tavan var
 
 ---
 
-## ✨ Ominaisuudet
+## Live Demo
 
-- 🔐 **Turvallinen käyttäjäautentikointi** - Rekisteröinti ja kirjautuminen
-- 📅 **Dynaaminen ajanvarausjärjestelmä** - Valitse palvelu, päivä ja vapaa aika
-- ⏰ **Reaaliaikainen aikojen tarkistus** - Näkee vain vapaat ajat
-- 📱 **Täysin responsiivinen design** - Toimii mobiilissa, tabletissa ja tietokoneella
-- 🔒 **Turvallisuus etusijalla:**
-  - PDO prepared statements (SQL-injection esto)
-  - Password hashing (bcrypt)
-  - CSRF-suojaus kaikissa lomakkeissa
-  - XSS-suojaus
-  - Session-turvallisuus
+Projekti on nähtävissä live-demona osoitteessa:
+**[jessehaapaniemi.com/barber-booking-system](https://www.jessehaapaniemi.com/barber-booking-system)**
+
+### Demo-tunnukset
+
+**Admin-tunnus:**
+- Sähköposti: `admin@demo.com`
+- Salasana: `demo123`
+
+**Tavallinen käyttäjä:**
+- Voit luoda oman tunnuksen rekisteröitymällä
 
 ---
 
-## 🛠️ Teknologiat
+## Ominaisuudet
+
+### Käyttäjälle
+- Turvallinen käyttäjäautentikointi (rekisteröinti ja kirjautuminen)
+- Dynaaminen ajanvarausjärjestelmä (valitse palvelu, päivä ja vapaa aika)
+- Reaaliaikainen aikojen tarkistus (näkee vain vapaat ajat)
+- Käyttäjäprofiili varaushistorialla
+- Varausten peruutus ja hallinta
+- Täysin responsiivinen design (toimii mobiilissa, tabletissa ja tietokoneella)
+
+### Admin-käyttäjälle
+- Admin-hallintapaneeli varausten hallintaan
+- Tilastot (tänään, viikko, kuukausi)
+- Uusien varausten lisäys
+- Varausten muokkaus ja poisto
+- Asiakashallinta GDPR-yhteensopivuudella
+- Asiakashaku nimellä tai sähköpostilla
+
+### Turvallisuus
+- PDO prepared statements (SQL-injection esto)
+- Password hashing (bcrypt)
+- CSRF-suojaus kaikissa lomakkeissa
+- XSS-suojaus (htmlspecialchars)
+- Session-turvallisuus
+
+---
+
+## Teknologiat
 
 ### Backend
 - **PHP 8.x** - Palvelinpuolen logiikka
@@ -33,186 +61,118 @@ Moderni parturi-varausjärjestelmä, joka tarjoaa käyttäjille helpon tavan var
 
 ### Frontend
 - **HTML5** - Semanttinen rakenne
-- **CSS3** - Moderni tyylittely (Flexbox, Grid, Custom Properties)
+- **CSS3** - Moderni tyylittely (Flexbox, Grid, Gradient)
 - **JavaScript (ES6+)** - Dynaaminen käyttöliittymä
 - **Fetch API** - Asynkroniset HTTP-pyynnöt
 
 ---
 
-## 🚀 Asennus
-
-### Vaatimukset
-- PHP >= 8.0
-- MySQL >= 5.7
-- Apache/Nginx web-palvelin (esim. XAMPP)
-- Git (valinnainen)
-
-### Asennusohjeet
-
-1. **Kloonaa repositorio**
-```bash
-git clone https://github.com/JesseOnCode/barber-booking-system.git
-cd barber-booking-system
-```
-
-2. **Konfiguroi ympäristömuuttujat**
-```bash
-cp .env.example .env
-```
-Avaa `.env` tiedosto ja täytä tietokanta-asetukset:
-```env
-DB_HOST=localhost
-DB_NAME=barbershop
-DB_USER=root
-DB_PASS=your_password_here
-```
-
-3. **Luo tietokanta**
-
-Vaihtoehto A - phpMyAdmin:
-- Avaa `http://localhost/phpmyadmin`
-- Klikkaa "SQL" -välilehti
-- Kopioi `database/schema.sql` sisältö ja suorita
-
-Vaihtoehto B - Komentorivi:
-```bash
-mysql -u root -p < database/schema.sql
-```
-
-4. **Konfiguroi web-palvelin**
-
-XAMPP:ssa aseta document root osoittamaan `public/` kansioon tai käytä:
-```
-http://localhost/barber-booking-system/public/
-```
-
-5. **Valmista!**
-
-Avaa selaimessa ja aloita käyttö.
-
----
-
-## 📁 Projektin rakenne
+## Projektin rakenne
 ```
 barber-booking-system/
-├── config/              # Konfiguraatiotiedostot
-├── database/            # SQL-skriptit ja tietokantarakenne
-│   └── schema.sql       # Tietokantarakenne
-├── includes/            # PHP-komponentit ja apufunktiot
-│   ├── config.php       # Tietokantayhteys ja asetukset
-│   ├── csrf.php         # CSRF-suojaus
-│   ├── header.php       # Sivun header
-│   └── footer.php       # Sivun footer
-├── public/              # Julkinen webroot
+├── database/
+│   └── schema.sql           # Tietokantarakenne
+├── includes/
+│   ├── config.php           # Tietokantayhteys
+│   ├── csrf.php             # CSRF-suojaus
+│   ├── header.php           # Sivun ylätunniste
+│   └── footer.php           # Sivun alatunniste
+├── public/
 │   ├── assets/
-│   │   ├── css/         # Tyylit
-│   │   ├── js/          # JavaScript
-│   │   └── images/      # Kuvat
-│   ├── index.php        # Etusivu
-│   ├── login.php        # Kirjautuminen
-│   ├── register.php     # Rekisteröinti
-│   ├── booking.php      # Ajanvaraus
+│   │   ├── css/
+│   │   │   └── main.css     # Kaikki tyylit
+│   │   ├── js/
+│   │   │   └── main.js      # JavaScript
+│   │   └── images/
+│   │       └── hero.jpg     # Taustakuva
+│   ├── admin/
+│   │   └── index.php        # Admin-paneeli
+│   ├── index.php            # Etusivu
+│   ├── login.php            # Kirjautuminen
+│   ├── register.php         # Rekisteröinti
+│   ├── booking.php          # Ajanvaraus
+│   ├── profile.php          # Käyttäjäprofiili
+│   ├── logout.php           # Uloskirjautuminen
 │   └── get_available_times.php  # API vapaille ajoille
-├── .env.example         # Ympäristömuuttujien malli
-├── .gitignore          # Git ignore tiedosto
-└── README.md           # Tämä tiedosto
+├── .gitignore
+└── README.md
 ```
 
 ---
 
-## 🔒 Turvallisuus
+## Turvallisuus
 
-Projektissa on implementoitu useita turvallisuusparhaita käytäntöjä:
-
-### Toteutetut turvallisuusominaisuudet:
-- ✅ **SQL Injection esto** - PDO prepared statements
-- ✅ **XSS esto** - htmlspecialchars() kaikissa käyttäjäsyötteissä
-- ✅ **CSRF-suojaus** - Tokenit kaikissa lomakkeissa
-- ✅ **Salasanojen hashays** - password_hash() ja password_verify()
-- ✅ **Session-turvallisuus** - HTTPOnly cookies, session regeneration
-- ✅ **Input-validointi** - Sähköposti, salasanan pituus, päivämäärät
-- ✅ **Ympäristömuuttujat** - Salasanat .env-tiedostossa (ei GitHubissa)
+### Toteutetut turvallisuusominaisuudet
+- **SQL Injection esto** - PDO prepared statements kaikissa tietokantakyselyissä
+- **XSS esto** - htmlspecialchars() kaikissa käyttäjäsyötteissä
+- **CSRF-suojaus** - Tokenit kaikissa lomakkeissa
+- **Salasanojen hashays** - password_hash() ja password_verify()
+- **Session-turvallisuus** - HTTPOnly cookies, session regeneration
+- **Input-validointi** - Sähköposti, salasanan pituus, päivämäärät
+- **Demo-tunnuksen suojaus** - Demo-tunnuksella ei voi vaihtaa salasanaa
 
 ---
 
-## 📸 Kuvakaappaukset
+## Kuvakaappaukset
 
 ### Etusivu
-Moderni ja selkeä landing page palveluinformaatiolla.
+Moderni landing page palveluinformaatiolla ja selkeällä call-to-action napilla.
 
 ### Ajanvaraus
-Dynaaminen varausjärjestelmä joka näyttää vain vapaat ajat valitulla päivällä.
+Dynaaminen varausjärjestelmä joka näyttää vain vapaat ajat valitulla päivällä. Estää päällekkäiset varaukset automaattisesti.
 
-### Kirjautuminen & Rekisteröinti
-Turvallinen käyttäjähallinta CSRF-suojauksella.
+### Käyttäjäprofiili
+Välilehdillä varustettu profiilisivu jossa käyttäjä näkee tulevat ja menneet varauksensa, voi muokata tietojaan ja vaihtaa salasanansa.
+
+### Admin-paneeli
+Kattava admin-näkymä tilastoilla, varausten hallinnalla ja asiakashaulla.
 
 ---
 
-## 💡 Oppimiskokemukset
+## Oppimiskokemukset
 
 Tämän projektin aikana opin:
 
-- **PHP-kehityksen parhaat käytännöt** - MVC-tyyppinen rakenne, koodin organisointi
-- **Tietoturva-asiat** - CSRF, XSS, SQL injection ja niiden estäminen
-- **Tietokantasuunnittelu** - Normalisointi, viiteavaimet, indeksit
-- **Responsiivinen design** - Mobile-first lähestymistapa
-- **Version hallinta** - Git workflow, commitit, .gitignore
-- **Ongelmanratkaisu** - Session-hallinta, aikavyöhykkeet, päällekkäisten varausten esto
+- **PHP-kehityksen parhaat käytännöt** - Modulaarinen rakenne, koodin organisointi
+- **Tietoturva** - CSRF, XSS, SQL injection ja niiden estäminen käytännössä
+- **Tietokantasuunnittelu** - Normalisointi, viiteavaimet, indeksit, kyselyjen optimointi
+- **Responsiivinen design** - Mobile-first lähestymistapa, CSS Grid ja Flexbox
+- **Version hallinta** - Git workflow, selkeät commit-viestit, .gitignore
+- **Käyttäjäkokemus** - Intuitiivinen UI, virheilmoitukset, onnistumisviestit
+- **Session-hallinta** - Käyttäjän tilan ylläpito, turvallisuus
+- **API-suunnittelu** - Fetch API, JSON-vastaukset, virheenkäsittely
 
 ---
 
-## 🗺️ Tulevat ominaisuudet
-
-Suunnitteilla olevat parannukset:
-
-- [ ] Käyttäjäprofiilisivu
-- [ ] Varaushistoria ja varausten hallinta
-- [ ] Sähköposti-vahvistukset varauksista
-- [ ] Admin-hallintapaneeli
-- [ ] Palveluiden hallinta tietokannasta
-- [ ] Kalenterinäkymä varauksille
-- [ ] SMS-muistutukset (Twilio)
-- [ ] Maksuintegraatio (Stripe/PayPal)
-- [ ] Monikielisyys (suomi/englanti)
-
----
-
-## 🧪 Testaus
+## Testaus
 
 Sovellus on testattu:
-- ✅ Chrome, Firefox, Safari, Edge -selaimilla
-- ✅ Mobiililaitteilla (iOS & Android)
-- ✅ Eri näyttökokoilla (320px - 1920px)
-- ✅ XAMPP ympäristössä (Windows)
+- Chrome, Firefox, Safari, Edge -selaimilla
+- Mobiililaitteilla (iOS & Android)
+- Eri näyttökokoilla (320px - 1920px)
+- Webhotelliympäristössä
+- Kaikki lomakkeet ja validoinnit
+- Admin-paneelin toiminnallisuudet
+- Varausjärjestelmän logiikka (päällekkäiset varaukset, menneet ajat)
 
 ---
 
-## 📝 Lisenssi
+## Tekijä
 
-Tämä projekti on tehty oppimis- ja portfolio-tarkoituksiin. Vapaa käyttöön ja muokkaukseen.
-
----
-
-## 👤 Tekijä
-
-**Jesse**
+**Jesse Haapaniemi**
 
 - GitHub: [@JesseOnCode](https://github.com/JesseOnCode)
-- LinkedIn: [www.linkedin.com/in/jessehaapaniemi]
-- Portfolio: [www.jessehaapaniemi.com]
+- LinkedIn: [linkedin.com/in/jessehaapaniemi](https://www.linkedin.com/in/jessehaapaniemi)
+- Portfolio: [jessehaapaniemi.com](https://www.jessehaapaniemi.com)
 
 ---
 
-## 🙏 Kiitokset
+## Yhteystiedot
 
-Kiitos kaikille jotka ovat antaneet palautetta ja vinkkejä projektin kehitykseen!
-
----
-
-## 📞 Yhteystiedot
-
-Jos sinulla on kysyttävää projektista tai haluat keskustella yhteistyöstä, ota yhteyttä GitHubin, LinkedInin tai portfolioni kautta!
+Jos sinulla on kysyttävää projektista tai haluat keskustella yhteistyöstä, ota yhteyttä GitHubin kautta tai LinkedIn-profiilini välityksellä.
 
 ---
 
-⭐ **Jos pidät projektista, anna sille tähti GitHubissa!**
+## Lisenssi
+
+Tämä projekti on tehty oppimis- ja portfolio-tarkoituksiin. Vapaa käyttöön ja muokkaukseen.
