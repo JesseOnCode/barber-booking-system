@@ -262,6 +262,29 @@ section {
     border: none;
 }
 
+/* Onnistumis- ja virheviestit */
+.form-messages {
+    margin-bottom: 20px;
+}
+
+.form-success {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-error {
+    background-color: #f44336;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
 /* Lomakkeen alaosan linkki */
 .form-text {
     margin-top: 20px;
@@ -518,13 +541,14 @@ section {
     max-width: 900px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 40px 30px 60px 30px;
+    padding: 40px 30px;
     border-radius: 8px;
     color: #fff;
-    min-height: 700px;
+    min-height: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
     margin-bottom: 40px;
 }
-
 .profile-dashboard h1 {
     text-align: center;
     margin-bottom: 30px;
@@ -611,7 +635,7 @@ section {
 .bookings-grid {
     display: grid;
     gap: 30px;
-    margin-bottom: 40px;
+    margin: 30px 0 40px 0;
 }
 
 .booking-item {
@@ -650,14 +674,32 @@ section {
     margin-bottom: 25px;
 }
 
+/* Status-badget eri väreillä */
+.booking-badge.status-cancelled {
+    background-color: #f44336;
+}
+
+.booking-badge.status-completed {
+    background-color: #666;
+}
+
+/* Peruutettujen varausten tyyli */
+.booking-item.cancelled {
+    border-left-color: #f44336 !important;
+    opacity: 0.7;
+}
+
+.booking-item.cancelled .booking-service {
+    color: #f44336;
+}
+
 .booking-info {
     margin: 25px 0;
 }
 
 .info-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    text-align: center;
     margin: 12px 0;
     font-size: 16px;
 }
@@ -665,18 +707,12 @@ section {
 .info-label {
     color: #c97a2b;
     font-weight: bold;
-    min-width: 120px;
-    text-align: right;
-    margin-right: 15px;
+    margin-right: 8px;
 }
 
 .info-value {
     color: #ddd;
-    text-align: left;
-    flex: 1;
-    max-width: 200px;
 }
-
 .booking-cancel-form {
     margin-top: 25px;
     padding-top: 25px;
@@ -684,8 +720,8 @@ section {
 }
 
 .btn-cancel-booking {
-    background-color: #f44336;
-    color: #fff;
+    background-color: #c97a2b;
+    color: #000;
     border: none;
     padding: 12px 30px;
     border-radius: 6px;
@@ -696,9 +732,9 @@ section {
 }
 
 .btn-cancel-booking:hover {
-    background-color: #d32f2f;
+    background-color: #b86f26;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+    box-shadow: 0 4px 12px rgba(201, 122, 43, 0.4);
 }
 
 /* Responsiivisuus */

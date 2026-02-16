@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                     ");
                     $stmt->execute([$hashedPassword, $_SESSION['user_id']]);
                     
-                    $passwordSuccess = "✅ Salasana vaihdettu onnistuneesti!";
+                   $passwordSuccess = "Salasana vaihdettu onnistuneesti.";
                     
                 } catch (Exception $e) {
                     $passwordError = "Salasanan vaihto epäonnistui. Yritä uudelleen.";
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
                 $stmt->execute([$firstName, $lastName, $_SESSION['user_id']]);
                 
                 $_SESSION['user_name'] = $firstName;
-                $success = "✅ Tiedot päivitetty onnistuneesti!";
+                $success = "Tiedot päivitetty onnistuneesti.";
                 
                 $user['first_name'] = $firstName;
                 $user['last_name'] = $lastName;
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_booking'])) {
                 ");
                 $stmt->execute([$bookingId]);
                 
-                $success = "✅ Varaus peruutettu onnistuneesti.";
+               $success = "Varaus peruutettu onnistuneesti.";
             } else {
                 $error = "Et voi peruuttaa mennyttä varausta.";
             }
@@ -297,37 +297,47 @@ require_once __DIR__ . '/../includes/header.php';
                 <?php endif; ?>
             </div>
             
-            <!-- Välilehti 3: Historia -->
+          <!-- Välilehti 3: Historia -->
             <div id="history" class="tab-content">
                 <h2>Varaushistoria</h2>
                 
                 <?php if (empty($pastBookings)): ?>
                     <div class="no-bookings">
-                        <p>📋 Ei aiempia varauksia.</p>
+                        <p>Ei aiempia varauksia.</p>
                     </div>
                 <?php else: ?>
-                    <div class="bookings-list">
+                    <div class="bookings-grid">
                         <?php foreach($pastBookings as $booking): ?>
-                            <div class="booking-card past">
-                                <div class="booking-header">
-                                    <h3><?= htmlspecialchars($booking['service']) ?></h3>
-                                    <span class="status-badge status-<?= $booking['status'] ?>">
-                                        <?php
-                                        $statuses = [
-                                            'pending' => 'Vahvistettu',
-                                            'confirmed' => 'Vahvistettu',
-                                            'cancelled' => 'Peruutettu',
-                                            'completed' => 'Suoritettu'
-                                        ];
-                                        echo $statuses[$booking['status']] ?? ucfirst($booking['status']);
-                                        ?>
-                                    </span>
+                            <div class="booking-item <?= $booking['status'] === 'cancelled' ? 'cancelled' : '' ?>">
+                                <div class="booking-service">
+                                    <?= htmlspecialchars($booking['service']) ?>
                                 </div>
                                 
-                                <div class="booking-details">
-                                    <p><strong>📅 Päivä:</strong> <?= date('d.m.Y', strtotime($booking['date'])) ?></p>
-                                    <p><strong>🕐 Aika:</strong> <?= date('H:i', strtotime($booking['time'])) ?></p>
-                                    <p><strong>⏱️ Kesto:</strong> <?= $booking['duration'] ?> min</p>
+                                <div class="booking-badge status-<?= $booking['status'] ?>">
+                                    <?php
+                                    $statuses = [
+                                        'pending' => 'VAHVISTETTU',
+                                        'confirmed' => 'VAHVISTETTU',
+                                        'cancelled' => 'PERUUTETTU',
+                                        'completed' => 'SUORITETTU'
+                                    ];
+                                    echo $statuses[$booking['status']] ?? strtoupper($booking['status']);
+                                    ?>
+                                </div>
+                                
+                                <div class="booking-info">
+                                    <div class="info-row">
+                                        <span class="info-label">Päivä:</span>
+                                        <span class="info-value"><?= date('d.m.Y', strtotime($booking['date'])) ?></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Aika:</span>
+                                        <span class="info-value"><?= date('H:i', strtotime($booking['time'])) ?></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Kesto:</span>
+                                        <span class="info-value"><?= $booking['duration'] ?> min</span>
+                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -407,6 +417,10 @@ require_once __DIR__ . '/../includes/header.php';
 <!-- Välilehtien JavaScript -->
 <script>
 function openTab(evt, tabName) {
+    // Piilota viestit
+    const messages = document.querySelectorAll('.form-messages');
+    messages.forEach(msg => msg.style.display = 'none');
+    
     // Piilota kaikki välilehdet
     const tabContents = document.getElementsByClassName('tab-content');
     for (let i = 0; i < tabContents.length; i++) {
@@ -423,6 +437,23 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).classList.add('active');
     evt.currentTarget.classList.add('active');
 }
+
+// Tarkista onko salasanan vaihto onnistunut tai epäonnistunut
+window.addEventListener('DOMContentLoaded', function() {
+    <?php if ($passwordSuccess || $passwordError): ?>
+        // Avaa salasana-välilehti
+        const tabs = document.getElementsByClassName('tab-content');
+        for (let i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove('active');
+        }
+        const btns = document.getElementsByClassName('tab-button');
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].classList.remove('active');
+        }
+        document.getElementById('password').classList.add('active');
+        document.querySelector('[onclick*="password"]').classList.add('active');
+    <?php endif; ?>
+});
 </script>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
