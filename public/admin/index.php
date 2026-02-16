@@ -298,17 +298,14 @@ require_once __DIR__ . '/../../includes/header.php';
                         
                         <!-- Valinta: Uusi vai olemassa oleva asiakas -->
                         <div class="form-group">
-                            <label>Asiakastyyppi *</label>
-                            <div class="radio-group">
-                                <label class="radio-label">
-                                    <input type="radio" name="new_customer" value="0" checked onchange="toggleCustomerType()">
-                                    <span>Valitse olemassa oleva asiakas</span>
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="new_customer" value="1" onchange="toggleCustomerType()">
-                                    <span>Uusi asiakas (puhelinvaraus)</span>
-                                </label>
-                            </div>
+                            <label style="display: block; margin-bottom: 10px;">Asiakastyyppi *</label>
+                        <div style="margin-bottom: 8px;">
+                            <input type="radio" name="customer_type" value="existing" id="existing" checked>
+                            <label for="existing">Valitse olemassa oleva asiakas</label>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <input type="radio" name="customer_type" value="new" id="new">
+                            <label for="new">Uusi asiakas (puhelinvaraus)</label>
                         </div>
                         
                         <!-- Olemassa oleva asiakas -->

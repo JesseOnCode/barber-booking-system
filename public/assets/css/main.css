@@ -1088,6 +1088,13 @@ section {
     border-radius: 8px;
 }
 
+@media (max-width: 768px) {
+    .admin-add-booking {
+        margin: 20px -10px;
+        padding: 15px 10px;
+    }
+}
+
 .btn-toggle {
     background-color: #4caf50;
     color: #fff;
@@ -1112,6 +1119,12 @@ section {
     border-radius: 8px;
 }
 
+@media (max-width: 768px) {
+    .add-form {
+        padding: 15px 10px;
+    }
+}
+
 .add-form h3 {
     color: #c97a2b;
     margin-bottom: 20px;
@@ -1127,6 +1140,7 @@ section {
 .admin-form .form-group {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .admin-form label {
@@ -1134,6 +1148,34 @@ section {
     margin-bottom: 5px;
     font-size: 14px;
     font-weight: bold;
+}
+
+/* Radiobuttonit */
+.admin-form input[type="radio"] {
+    margin-right: 8px;
+    margin-left: 12px;
+}
+
+.admin-form input[type="radio"]:first-of-type {
+    margin-left: 0;
+}
+
+.admin-form label[for] {
+    display: inline;
+    margin-right: 15px;
+    font-weight: normal;
+}
+
+@media (max-width: 768px) {
+    .admin-form input[type="radio"] {
+        margin-right: 6px;
+        margin-left: 8px;
+    }
+    
+    .admin-form label[for] {
+        margin-right: 10px;
+        font-size: 13px;
+    }
 }
 
 .admin-form input,
