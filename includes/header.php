@@ -45,7 +45,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="main-nav">
             <ul>
                 <li><a href="/barber-booking-system/public/index.php#about">Meistä</a></li>
-                <li><a href="/barber-booking-system/public/index.php#services">Palvelut</a></li>
+                <li><a href="/barber-booking-system/public/index.php#services">Hinnasto</a></li>
                 <li><a href="/barber-booking-system/public/index.php#booking-cta">Ajanvaraus</a></li>
                 <li><a href="/barber-booking-system/public/index.php#contact">Yhteystiedot</a></li>
                 

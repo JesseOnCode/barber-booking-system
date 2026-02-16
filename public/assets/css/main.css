@@ -427,7 +427,7 @@ section {
         display: block;
     }
     
-    /* Navigaation tyylitys mobiilissa */
+/* Navigaation tyylitys mobiilissa */
     .main-nav ul {
         position: fixed;
         top: 70px;
@@ -435,18 +435,18 @@ section {
         right: 0;
         width: 100%;
         flex-direction: column;
-        background-color: #000;
+        background-color: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(2px);
         display: none;
         text-align: center;
-        padding: 20px 0;
+        padding: 10px 0;
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        max-height: calc(100vh - 70px);
-        overflow-y: auto;
+        z-index: 999;
     }
 
-    .main-nav ul li {
+   .main-nav ul li {
         margin: 0;
-        padding: 12px 0;
+        padding: 8px 0;
         border-bottom: 1px solid #333;
     }
     

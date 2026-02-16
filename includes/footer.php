@@ -2,7 +2,7 @@
 /**
  * Sivuston footer-komponentti
  * 
- * Sisältää yhteystiedot ja mobiilinavigaation toggle-skriptin.
+ * Sisältää yhteystiedot ja JavaScript-latauksen.
  * 
  * @package BarberShop
  * @author Jesse
@@ -18,20 +18,6 @@
     </div>
 </footer>
 
-<!-- Mobiilinavigaation toggle-skripti -->
-<script>
-/**
- * Mobiilinavigaation avaus/sulkeminen
- */
-const toggle = document.querySelector('.nav-toggle');
-const nav = document.querySelector('.main-nav');
-
-if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-    });
-}
-</script>
-
+<script src="/barber-booking-system/public/assets/js/main.js"></script>
 </body>
-</html>     
+</html>
