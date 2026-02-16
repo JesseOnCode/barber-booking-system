@@ -122,6 +122,11 @@ main:has(.form-section) {
     margin-top: 0;
 }
 
+/* Poista margin admin-sivuilla */
+main:has(.admin-section) {
+    margin-top: 0;
+}
+
 section {
     height: 100vh;
     display: flex;
@@ -691,7 +696,8 @@ section {
 .admin-section {
     min-height: 100vh;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    padding: 100px 20px 40px;
+    padding: 90px 20px 60px;
+    margin-top: -5px; /* Poista ohut valkoinen viiva */
 }
 
 .admin-container {
@@ -701,6 +707,7 @@ section {
     padding: 40px;
     border-radius: 12px;
     color: #fff;
+    min-height: auto; /* Poista kiinteä korkeus */
 }
 
 .admin-container h1 {
@@ -722,9 +729,21 @@ section {
 ========================= */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin-bottom: 50px;
+}
+
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .stat-card {
@@ -813,9 +832,12 @@ section {
 
 .admin-table thead {
     background-color: #c97a2b;
-    color: #000;
+    color: #000 !important;
 }
 
+.admin-table thead th {
+    color: #000 !important;
+}
 .admin-table th {
     padding: 15px;
     text-align: left;
@@ -829,8 +851,8 @@ section {
     padding: 15px;
     border-bottom: 1px solid #333;
     font-size: 14px;
+    color: #fff; /* Valkoinen teksti */
 }
-
 .admin-table tbody tr {
     transition: background-color 0.2s ease;
 }
@@ -840,7 +862,7 @@ section {
 }
 
 .admin-table small {
-    color: #999;
+    color: #ddd; /* Vaaleampi harmaa */
     font-size: 12px;
 }
 
@@ -888,5 +910,239 @@ section {
     
     .stat-number {
         font-size: 32px;
+    }
+}
+
+/* =========================
+   ADMIN VIESTIT
+========================= */
+.admin-message {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.admin-message.success {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.admin-message.error {
+    background-color: #f44336;
+    color: #fff;
+}
+
+/* =========================
+   ADMIN LOMAKE
+========================= */
+.admin-add-booking {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.btn-toggle {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-toggle:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.add-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.add-form h3 {
+    color: #c97a2b;
+    margin-bottom: 20px;
+}
+
+.admin-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.admin-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-form label {
+    color: #ccc;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    outline: none;
+    border-color: #c97a2b;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #45a049;
+}
+
+.btn-cancel {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #555;
+}
+
+.btn-delete {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   ADMIN RESPONSIIVISUUS
+========================= */
+@media (max-width: 1400px) {
+    .admin-container {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-section {
+        padding: 15px;
+        padding-top: 85px;
+    }
+    
+    .admin-container {
+        padding: 20px 15px;
+    }
+    
+    .admin-container h1 {
+        font-size: 24px;
+    }
+    
+    .admin-welcome {
+        font-size: 16px;
+    }
+    
+    /* Lomake */
+    .admin-form .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Taulukko skrollaa vaakasuunnassa */
+    .table-responsive {
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .admin-table {
+        font-size: 13px;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 10px 8px;
+        white-space: nowrap;
+    }
+    
+    /* Piilota turhat sarakkeet mobiilissa */
+    .admin-table th:nth-child(1),
+    .admin-table td:nth-child(1) {
+        display: none; /* ID */
+    }
+    
+    .admin-table th:nth-child(6),
+    .admin-table td:nth-child(6) {
+        font-size: 11px; /* Kesto pienempi */
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-container h1 {
+        font-size: 20px;
+    }
+    
+    .stats-grid {
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 32px;
+    }
+    
+    .btn-toggle,
+    .btn-submit,
+    .btn-cancel {
+        font-size: 14px;
+        padding: 10px 20px;
     }
 }

@@ -11,6 +11,10 @@
 
 session_start();
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/csrf.php';
+
+$success = '';
+$error = '';
 
 // Tarkista kirjautuminen
 if (!isset($_SESSION['user_id'])) {
@@ -29,6 +33,60 @@ if (!$user || !$user['is_admin']) {
     exit;
 }
 
+// Käsittele varauksen poisto
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_booking'])) {
+    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $error = "Virheellinen lomake.";
+    } else {
+        $bookingId = (int)$_POST['booking_id'];
+        
+        try {
+            $stmt = $pdo->prepare("DELETE FROM bookings WHERE id = ?");
+            $stmt->execute([$bookingId]);
+            $success = "✅ Varaus poistettu onnistuneesti.";
+        } catch (Exception $e) {
+            $error = "Varauksen poisto epäonnistui.";
+        }
+    }
+}
+
+// Käsittele uuden varauksen lisäys
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_booking'])) {
+    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $error = "Virheellinen lomake.";
+    } else {
+        $userId = (int)$_POST['user_id'];
+        $service = $_POST['service'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $notes = trim($_POST['notes'] ?? '');
+        
+        $serviceDurations = [
+            "Hiustenleikkaus" => 30,
+            "Parranleikkaus" => 15,
+            "Koneajo" => 20,
+            "Hiustenleikkaus + Parranleikkaus" => 45
+        ];
+        
+        $duration = $serviceDurations[$service] ?? 30;
+        
+        if (empty($userId) || empty($service) || empty($date) || empty($time)) {
+            $error = "Täytä kaikki pakolliset kentät.";
+        } else {
+            try {
+                $stmt = $pdo->prepare("
+                    INSERT INTO bookings (user_id, service, date, time, duration, notes, status)
+                    VALUES (?, ?, ?, ?, ?, ?, 'confirmed')
+                ");
+                $stmt->execute([$userId, $service, $date, $time, $duration, $notes]);
+                $success = "✅ Uusi varaus lisätty onnistuneesti!";
+            } catch (Exception $e) {
+                $error = "Varauksen lisäys epäonnistui: " . $e->getMessage();
+            }
+        }
+    }
+}
+
 // Hae tilastoja
 $stats = [];
 
@@ -43,10 +101,6 @@ $stats['week'] = $stmt->fetchColumn();
 // Kuukauden varaukset
 $stmt = $pdo->query("SELECT COUNT(*) FROM bookings WHERE MONTH(date) = MONTH(CURDATE()) AND YEAR(date) = YEAR(CURDATE()) AND status != 'cancelled'");
 $stats['month'] = $stmt->fetchColumn();
-
-// Odottavat varaukset
-$stmt = $pdo->query("SELECT COUNT(*) FROM bookings WHERE status = 'pending' AND date >= CURDATE()");
-$stats['pending'] = $stmt->fetchColumn();
 
 // Hae viimeisimmät varaukset
 $stmt = $pdo->query("
@@ -63,10 +117,23 @@ require_once __DIR__ . '/../../includes/header.php';
 ?>
 
 <main>
-    <section class="admin-section">
+    <div class="admin-section">
         <div class="admin-container">
             <h1>📊 Admin-paneeli</h1>
             <p class="admin-welcome">Tervetuloa, <?= htmlspecialchars($_SESSION['user_name']) ?>!</p>
+            
+            <!-- Viestit -->
+            <?php if($error): ?>
+                <div class="admin-message error">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+            
+            <?php if($success): ?>
+                <div class="admin-message success">
+                    <?= htmlspecialchars($success) ?>
+                </div>
+            <?php endif; ?>
             
             <!-- Tilastokortit -->
             <div class="stats-grid">
@@ -96,14 +163,69 @@ require_once __DIR__ . '/../../includes/header.php';
                         <p class="stat-label">varausta</p>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Lisää uusi varaus -->
+            <div class="admin-add-booking">
+                <button class="btn-toggle" onclick="toggleAddForm()">➕ Lisää uusi varaus</button>
                 
-                <div class="stat-card pending">
-                    <div class="stat-icon">⏰</div>
-                    <div class="stat-info">
-                        <h3>Odottaa</h3>
-                        <p class="stat-number"><?= $stats['pending'] ?></p>
-                        <p class="stat-label">varausta</p>
-                    </div>
+                <div id="addBookingForm" class="add-form" style="display: none;">
+                    <h3>Uusi varaus</h3>
+                    
+                    <form method="POST" class="admin-form">
+                        <?php csrf_field(); ?>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="user_id">Asiakas *</label>
+                                <select name="user_id" id="user_id" required>
+                                    <option value="">-- Valitse asiakas --</option>
+                                    <?php
+                                    $users = $pdo->query("SELECT id, first_name, last_name, email FROM users ORDER BY first_name")->fetchAll();
+                                    foreach($users as $u):
+                                    ?>
+                                        <option value="<?= $u['id'] ?>">
+                                            <?= htmlspecialchars($u['first_name'] . ' ' . $u['last_name']) ?> 
+                                            (<?= htmlspecialchars($u['email']) ?>)
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="service">Palvelu *</label>
+                                <select name="service" id="service" required>
+                                    <option value="">-- Valitse palvelu --</option>
+                                    <option value="Hiustenleikkaus">Hiustenleikkaus - 30 min</option>
+                                    <option value="Parranleikkaus">Parranleikkaus - 15 min</option>
+                                    <option value="Koneajo">Koneajo - 20 min</option>
+                                    <option value="Hiustenleikkaus + Parranleikkaus">Hiustenleikkaus + Parranleikkaus - 45 min</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Päivämäärä *</label>
+                                <input type="date" name="date" id="date" value="<?= date('Y-m-d') ?>" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="time">Aika *</label>
+                                <input type="time" name="time" id="time" value="09:00" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes">Lisätiedot</label>
+                            <textarea name="notes" id="notes" rows="3" placeholder="Valinnainen..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" name="add_booking" class="btn-submit">💾 Tallenna varaus</button>
+                            <button type="button" class="btn-cancel" onclick="toggleAddForm()">❌ Peruuta</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             
@@ -124,7 +246,7 @@ require_once __DIR__ . '/../../includes/header.php';
                                     <th>Päivä</th>
                                     <th>Aika</th>
                                     <th>Kesto</th>
-                                    <th>Tila</th>
+                                    <th>Toiminnot</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -141,17 +263,13 @@ require_once __DIR__ . '/../../includes/header.php';
                                     <td><?= date('H:i', strtotime($booking['time'])) ?></td>
                                     <td><?= $booking['duration'] ?> min</td>
                                     <td>
-                                        <span class="status-badge status-<?= $booking['status'] ?>">
-                                            <?php
-                                            $statuses = [
-                                                'pending' => 'Odottaa',
-                                                'confirmed' => 'Vahvistettu',
-                                                'cancelled' => 'Peruutettu',
-                                                'completed' => 'Suoritettu'
-                                            ];
-                                            echo $statuses[$booking['status']] ?? $booking['status'];
-                                            ?>
-                                        </span>
+                                        <form method="POST" style="display: inline;" onsubmit="return confirm('Haluatko varmasti poistaa tämän varauksen?')">
+                                            <?php csrf_field(); ?>
+                                            <input type="hidden" name="booking_id" value="<?= $booking['id'] ?>">
+                                            <button type="submit" name="delete_booking" class="btn-delete">
+                                                🗑️ Poista
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -161,11 +279,22 @@ require_once __DIR__ . '/../../includes/header.php';
                 <?php endif; ?>
             </div>
             
-           <p class="admin-back">
+            <p class="admin-back">
                 <a href="/barber-booking-system/public/index.php">← Takaisin etusivulle</a>
             </p>
         </div>
-    </section>
+    </div>
 </main>
+
+<script>
+function toggleAddForm() {
+    const form = document.getElementById('addBookingForm');
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+    } else {
+        form.style.display = 'none';
+    }
+}
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
