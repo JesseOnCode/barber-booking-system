@@ -21,7 +21,7 @@ $error = '';
 
 // Näytä kirjautumisonnistumisviesti
 if (isset($_SESSION['login_success'])) {
-    $success = "✅ Tervetuloa, " . htmlspecialchars($_SESSION['user_name']) . "! Olet nyt kirjautunut sisään. Voit varata ajan alta.";
+    $success = "Tervetuloa, " . htmlspecialchars($_SESSION['user_name']) . "! Olet nyt kirjautunut sisään. Voit varata ajan alta.";
     unset($_SESSION['login_success']); // Poista viesti jotta se ei näy uudelleen
 }
 
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $duration,
                         $notes
                     ]);
-                    $success = "✅ Ajanvaraus onnistui!";
+                    $success = "Ajanvaraus onnistui!";
                 } catch (Exception $e) {
                     $error = "Ajanvarausta ei voitu tallentaa. Yritä uudelleen.";
                 }
@@ -72,21 +72,25 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <main>
-    <!-- Viestit ylhäällä ennen lomaketta -->
-    <?php if($error || $success): ?>
-        <div style="padding: 20px; max-width: 500px; margin: 90px auto 0;">
-            <?php if($error): ?>
-                <div class="form-error"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-            <?php if($success): ?>
-                <div class="form-success"><?= htmlspecialchars($success) ?></div>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
-
     <section class="form-section">
         <div class="form-container">
-            <h2>Varaa aika</h2>
+            <h1>Varaa aika</h1>
+            
+            <?php if ($success): ?>
+                <div class="form-messages">
+                    <div class="form-success" style="background-color: #4caf50; color: #fff; padding: 12px; border-radius: 6px; margin-bottom: 20px; text-align: center;">
+                        ✅ <?= htmlspecialchars($success) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+            <?php if ($error): ?>
+                <div class="form-messages">
+                    <div class="form-error" style="background-color: #f44336; color: #fff; padding: 12px; border-radius: 6px; margin-bottom: 20px; text-align: center;">
+                        ⚠️ <?= htmlspecialchars($error) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <form class="form" method="POST" action="booking.php">
                 <?php csrf_field(); ?>

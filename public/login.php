@@ -5,6 +5,13 @@ require_once __DIR__ . '/../includes/csrf.php';
 
 $error = '';
 
+// Tarkista rekisteröitymisen onnistuminen
+$registrationSuccess = false;
+if (isset($_SESSION['registration_success'])) {
+    $registrationSuccess = true;
+    unset($_SESSION['registration_success']); // Poista viesti session:sta
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Tarkista CSRF-token
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
@@ -20,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-         if ($user && password_verify($password, $user['password'])) {
+            if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['first_name'];
                 $_SESSION['user_email'] = $user['email']; // Tallenna email
@@ -49,6 +56,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <section class="form-section">
         <div class="form-container">
             <h1>Kirjaudu sisään</h1>
+
+            <?php if($registrationSuccess): ?>
+                <div class="form-messages">
+                    <div class="form-success" style="background-color: #4caf50; color: #fff; padding: 12px; border-radius: 6px; margin-bottom: 20px; text-align: center;">
+                        ✅ Rekisteröityminen onnistui! Voit nyt kirjautua sisään.
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <?php if ($error): ?>
                 <div class="form-messages">

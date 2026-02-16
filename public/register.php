@@ -3,7 +3,6 @@ session_start();
 require_once __DIR__ . '/../includes/config.php';
 
 // Backend: käsittele lomake
-$success = '';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,7 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 VALUES (?, ?, ?, ?)
             ");
             $stmt->execute([$firstName, $lastName, $email, $hashedPassword]);
-            $success = "✅ Rekisteröinti onnistui! Voit nyt kirjautua sisään.";
+            
+            // Ohjaa login-sivulle onnistumisviestillä
+            $_SESSION['registration_success'] = true;
+            header("Location: login.php");
+            exit;
         }
     }
 }
@@ -47,14 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Rekisteröidy</h1>
 
             <!-- Viestikontti -->
-            <div class="form-messages">
-                <?php if($error): ?>
+            <?php if($error): ?>
+                <div class="form-messages">
                     <div class="form-error"><?= htmlspecialchars($error) ?></div>
-                <?php endif; ?>
-                <?php if($success): ?>
-                    <div class="form-success"><?= htmlspecialchars($success) ?></div>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
 
             <form class="form" method="POST" action="register.php">
                 <label for="first_name">Etunimi</label>

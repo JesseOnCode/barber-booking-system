@@ -525,6 +525,14 @@ require_once __DIR__ . '/../../includes/header.php';
                 <p class="gdpr-notice">
                     <strong>GDPR-huomio:</strong> Tästä osiosta voit poistaa asiakkaan kaikki tiedot ja varaukset pysyvästi.
                 </p>
+
+                <!-- Hakukenttä -->
+                <div class="search-box" style="margin-bottom: 20px;">
+                    <input type="text" 
+                           id="customerSearch" 
+                           placeholder="Hae nimellä tai sähköpostilla..." 
+                           style="width: 100%; max-width: 400px; padding: 10px; border: 1px solid #555; border-radius: 6px; background-color: #1a1a1a; color: #fff; font-size: 14px;">
+                </div>
                 
                 <?php if (empty($customers)): ?>
                     <p class="no-data">Ei asiakkaita.</p>
@@ -662,6 +670,32 @@ function toggleCustomerType() {
         userSelect.setAttribute('required', 'required');
     }
 }
+
+// Asiakashaku
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('customerSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const table = document.querySelector('#customers .admin-table tbody');
+            if (!table) return;
+            
+            const rows = table.getElementsByTagName('tr');
+            
+            for (let row of rows) {
+                const name = row.cells[1]?.textContent.toLowerCase() || '';
+                const email = row.cells[2]?.textContent.toLowerCase() || '';
+                
+                if (name.includes(searchTerm) || email.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    }
+});
+</script>
 </script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
