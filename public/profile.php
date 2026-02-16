@@ -241,46 +241,56 @@ require_once __DIR__ . '/../includes/header.php';
                 </form>
             </div>
             
-            <!-- Välilehti 2: Tulevat varaukset -->
+           <!-- Välilehti 2: Tulevat varaukset -->
             <div id="bookings" class="tab-content">
                 <h2>Tulevat varaukset</h2>
                 
                 <?php if (empty($upcomingBookings)): ?>
                     <div class="no-bookings">
-                        <p>📅 Sinulla ei ole tulevia varauksia.</p>
+                        <p>Sinulla ei ole tulevia varauksia.</p>
                         <a href="booking.php" class="btn-primary">Varaa aika nyt</a>
                     </div>
                 <?php else: ?>
-                    <div class="bookings-list">
+                    <div class="bookings-grid">
                         <?php foreach($upcomingBookings as $booking): ?>
-                            <div class="booking-card upcoming">
-                                <div class="booking-header">
-                                    <h3><?= htmlspecialchars($booking['service']) ?></h3>
-                                    <span class="status-badge status-pending">Vahvistettu</span>
+                            <div class="booking-item">
+                                <div class="booking-service">
+                                    <?= htmlspecialchars($booking['service']) ?>
                                 </div>
                                 
-                                <div class="booking-details">
-                                    <p><strong>📅 Päivä:</strong> <?= date('d.m.Y', strtotime($booking['date'])) ?></p>
-                                    <p><strong>🕐 Aika:</strong> <?= date('H:i', strtotime($booking['time'])) ?></p>
-                                    <p><strong>⏱️ Kesto:</strong> <?= $booking['duration'] ?> min</p>
-                                    
+                                <div class="booking-badge">VAHVISTETTU</div>
+                                
+                                <div class="booking-info">
+                                    <div class="info-row">
+                                        <span class="info-label">Päivä:</span>
+                                        <span class="info-value"><?= date('d.m.Y', strtotime($booking['date'])) ?></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Aika:</span>
+                                        <span class="info-value"><?= date('H:i', strtotime($booking['time'])) ?></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Kesto:</span>
+                                        <span class="info-value"><?= $booking['duration'] ?> min</span>
+                                    </div>
                                     <?php if ($booking['notes']): ?>
-                                        <p><strong>📝 Lisätiedot:</strong> <?= htmlspecialchars($booking['notes']) ?></p>
+                                        <div class="info-row">
+                                            <span class="info-label">Lisätiedot:</span>
+                                            <span class="info-value"><?= htmlspecialchars($booking['notes']) ?></span>
+                                        </div>
                                     <?php endif; ?>
                                 </div>
                                 
-                                <div class="booking-actions">
-                                    <form method="POST" style="display: inline;">
-                                        <?php csrf_field(); ?>
-                                        <input type="hidden" name="booking_id" value="<?= $booking['id'] ?>">
-                                        <button type="submit" 
-                                                name="cancel_booking" 
-                                                class="btn-cancel"
-                                                onclick="return confirm('Haluatko varmasti peruuttaa tämän varauksen?')">
-                                            ❌ Peruuta varaus
-                                        </button>
-                                    </form>
-                                </div>
+                                <form method="POST" class="booking-cancel-form">
+                                    <?php csrf_field(); ?>
+                                    <input type="hidden" name="booking_id" value="<?= $booking['id'] ?>">
+                                    <button type="submit" 
+                                            name="cancel_booking" 
+                                            class="btn-cancel-booking"
+                                            onclick="return confirm('Haluatko varmasti peruuttaa tämän varauksen?')">
+                                        Peruuta varaus
+                                    </button>
+                                </form>
                             </div>
                         <?php endforeach; ?>
                     </div>

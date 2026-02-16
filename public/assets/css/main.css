@@ -262,18 +262,23 @@ section {
     border: none;
 }
 
-.btn-submit {
-    width: 100%;
-    padding: 12px;
-    background-color: #c97a2b;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
+/* Lomakkeen alaosan linkki */
+.form-text {
+    margin-top: 20px;
+    text-align: center;
+    color: #ddd;
+    font-size: 14px;
 }
 
-.btn-submit:hover {
-    background-color: #b86f26;
+.form-text a {
+    color: #c97a2b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-text a:hover {
+    color: #b86f26;
+    text-decoration: underline;
 }
 
 /* =========================
@@ -513,10 +518,11 @@ section {
     max-width: 900px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 40px 30px;
+    padding: 40px 30px 60px 30px;
     border-radius: 8px;
     color: #fff;
-    min-height: 700px; /* Kiinteä korkeus pitää laatikon samassa koossa */
+    min-height: 700px;
+    margin-bottom: 40px;
 }
 
 .profile-dashboard h1 {
@@ -585,7 +591,118 @@ section {
     font-size: 24px;
 }
 
+/* =========================
+   VARAUSKORTIT (Profiili)
+========================= */
+.no-bookings {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 2px dashed #555;
+}
+
+.no-bookings p {
+    color: #999;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.bookings-grid {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.booking-item {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.6) 0%, rgba(20, 20, 20, 0.6) 100%);
+    border: 2px solid #444;
+    border-left: 5px solid #4caf50;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.booking-item:hover {
+    border-color: #c97a2b;
+    border-left-color: #c97a2b;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(201, 122, 43, 0.3);
+}
+
+.booking-service {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.booking-badge {
+    display: inline-block;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+.booking-info {
+    margin: 25px 0;
+}
+
+.info-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px 0;
+    font-size: 16px;
+}
+
+.info-label {
+    color: #c97a2b;
+    font-weight: bold;
+    min-width: 120px;
+    text-align: right;
+    margin-right: 15px;
+}
+
+.info-value {
+    color: #ddd;
+    text-align: left;
+    flex: 1;
+    max-width: 200px;
+}
+
+.booking-cancel-form {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid #555;
+}
+
+.btn-cancel-booking {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel-booking:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+}
+
 /* Responsiivisuus */
+
 @media (max-width: 768px) {
     .profile-dashboard {
         padding: 30px 20px;
@@ -1005,18 +1122,19 @@ section {
 }
 
 .btn-submit {
-    background-color: #4caf50;
-    color: #fff;
+    background-color: #c97a2b;
+    color: #000;
     border: none;
     padding: 12px 24px;
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 100%;
 }
 
 .btn-submit:hover {
-    background-color: #45a049;
+    background-color: #b86f26;
 }
 
 .btn-cancel {
@@ -1291,3 +1409,29 @@ section {
     }
 }
 
+/* Profiili-ikoni */
+.profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(201, 122, 43, 0.2);
+    color: #c97a2b;
+    transition: all 0.3s ease;
+    margin-right: 8px;
+    border: 2px solid #c97a2b;
+}
+
+.profile-icon:hover {
+    background-color: #c97a2b;
+    color: #000;
+    border-color: #c97a2b;
+    transform: scale(1.1);
+}
+
+.profile-icon svg {
+    width: 20px;
+    height: 20px;
+}

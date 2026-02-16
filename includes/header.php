@@ -69,11 +69,19 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- Käyttäjän kirjautumistiedot (desktop) -->
         <div class="auth desktop-only">
             <?php if(isset($_SESSION['user_id'])): ?>
-                <span class="user-greeting">Hei, <?= htmlspecialchars($_SESSION['user_name']) ?></span>
-                <a href="/barber-booking-system/public/profile.php" class="btn-auth btn-profile">Profiili</a>
+                <span class="user-greeting">Hei, <?= htmlspecialchars($_SESSION['user_name']) ?>!</span>
+                
                 <?php if (!empty($_SESSION['is_admin'])): ?>
                     <a href="/barber-booking-system/public/admin/index.php" class="btn-auth btn-admin">Admin</a>
                 <?php endif; ?>
+                
+                <a href="/barber-booking-system/public/profile.php" class="profile-icon" title="Oma profiili">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                
                 <a href="/barber-booking-system/public/logout.php" class="btn-auth">Kirjaudu ulos</a>
             <?php else: ?>
                 <a href="/barber-booking-system/public/login.php" class="btn-auth">Kirjaudu / Rekisteröidy</a>
