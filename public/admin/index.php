@@ -105,6 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_booking'])) {
                 $error = "Virheellinen sähköpostiosoite.";
             } elseif (empty($service) || empty($date) || empty($time)) {
                 $error = "Täytä kaikki pakolliset kentät.";
+            } elseif (new DateTime("$date $time") <= new DateTime()) {
+                $error = "Et voi varata aikaa menneisyyteen.";
             } else {
                 // Tarkista ettei sähköposti ole jo käytössä
                 $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
@@ -171,6 +173,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_booking'])) {
             
             if (empty($userId) || empty($service) || empty($date) || empty($time)) {
                 $error = "Täytä kaikki pakolliset kentät.";
+            } elseif (new DateTime("$date $time") <= new DateTime()) {
+                $error = "Et voi varata aikaa menneisyyteen.";
             } else {
                 // Tarkista päällekkäisyydet
                 $bookingStart = new DateTime("$date $time");
