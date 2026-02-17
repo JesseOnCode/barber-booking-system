@@ -116,16 +116,16 @@ barber-booking-system/
 ## Kuvakaappaukset
 
 ### Etusivu
-Moderni landing page palveluinformaatiolla ja selkeällä call-to-action napilla.
+![Etusivu](docs/screenshots/hero.png)
 
 ### Ajanvaraus
-Dynaaminen varausjärjestelmä joka näyttää vain vapaat ajat valitulla päivällä. Estää päällekkäiset varaukset automaattisesti.
+![Ajanvaraus](docs/screenshots/booking.png)
 
 ### Käyttäjäprofiili
-Välilehdillä varustettu profiilisivu jossa käyttäjä näkee tulevat ja menneet varauksensa, voi muokata tietojaan ja vaihtaa salasanansa.
+![Profiili](docs/screenshots/profile.png)
 
 ### Admin-paneeli
-Kattava admin-näkymä tilastoilla, varausten hallinnalla ja asiakashaulla.
+![Admin](docs/screenshots/admin-dashboard.png)
 
 ---
 
