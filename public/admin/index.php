@@ -422,6 +422,7 @@ require_once __DIR__ . '/../../includes/header.php';
                                     <th>Päivä</th>
                                     <th>Aika</th>
                                     <th>Kesto</th>
+                                    <th>Lisätiedot</th>
                                     <th>Toiminnot</th>
                                 </tr>
                             </thead>
@@ -438,6 +439,13 @@ require_once __DIR__ . '/../../includes/header.php';
                                     <td><?= date('d.m.Y', strtotime($booking['date'])) ?></td>
                                     <td><?= date('H:i', strtotime($booking['time'])) ?></td>
                                     <td><?= $booking['duration'] ?> min</td>
+                                    <td>
+                                        <?php if (!empty($booking['notes'])): ?>
+                                            <?= htmlspecialchars($booking['notes']) ?>
+                                        <?php else: ?>
+                                            <span style="color: #666;">-</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <form method="POST" style="display: inline;" onsubmit="return confirm('Haluatko varmasti poistaa tämän varauksen?')">
                                             <?php csrf_field(); ?>
