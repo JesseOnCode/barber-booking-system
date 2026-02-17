@@ -34,6 +34,16 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="/barber-booking-system/public/index.php">Barber<span>Shop</span></a>
         </div>
 
+        <!-- Profiili-ikoni mobiilissa -->
+        <?php if(isset($_SESSION['user_id'])): ?>
+            <a href="/barber-booking-system/public/profile.php" class="mobile-profile-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+        <?php endif; ?>
+
         <!-- Mobiilinavigaation toggle -->
         <div class="nav-toggle">
              <span></span>
@@ -54,7 +64,15 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li class="mobile-only mobile-user-greeting">
                         <span>Kirjautunut: <?= htmlspecialchars($_SESSION['user_name']) ?></span>
                     </li>
-                    <li class="mobile-only"><a href="/barber-booking-system/public/profile.php">👤 Profiili</a></li>
+                    <li class="mobile-only">
+                        <a href="/barber-booking-system/public/profile.php" class="mobile-profile-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Profiili
+                        </a>
+                    </li>
                     <?php if (!empty($_SESSION['is_admin'])): ?>
                         <li class="mobile-only"><a href="/barber-booking-system/public/admin/index.php">👨‍💼 Admin</a></li>
                     <?php endif; ?>

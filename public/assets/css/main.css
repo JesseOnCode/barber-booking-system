@@ -460,9 +460,10 @@ section {
         font-size: 16px;
     }
 
-    .nav-toggle {
+   .nav-toggle {
         display: flex;
         z-index: 1001;
+        margin-left: 12px;
     }
 
     .main-nav.active ul {
@@ -488,6 +489,24 @@ section {
 
 .btn-admin:hover {
     background-color: #d32f2f !important;
+}
+
+/* Mobile profiili-linkki ikonilla */
+.mobile-profile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.mobile-profile-link svg {
+    color: #c97a2b;
+    transition: all 0.3s ease;
+}
+
+.mobile-profile-link:hover svg {
+    color: #b86f26;
+    transform: scale(1.1);
 }
 
 /* Mobile user greeting tyyli */
@@ -1490,6 +1509,39 @@ section {
     
     .admin-tab-content {
         padding: 20px 15px;
+    }
+}
+
+/* Mobile profiili-ikoni navbarissa */
+.mobile-profile-icon {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-profile-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(201, 122, 43, 0.2);
+        color: #c97a2b;
+        transition: all 0.3s ease;
+        margin-left: auto;
+        margin-right: 0;
+        border: 2px solid #c97a2b;
+    }
+
+    .mobile-profile-icon:hover {
+        background-color: #c97a2b;
+        color: #000;
+        transform: scale(1.1);
+    }
+
+    .mobile-profile-icon svg {
+        width: 20px;
+        height: 20px;
     }
 }
 
