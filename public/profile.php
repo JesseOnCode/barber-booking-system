@@ -8,7 +8,7 @@
  * - Peruuttaa varauksia
  * 
  * @package BarberShop
- * @author Jesse
+ * @author  Jesse Haapaniemi
  */
 
 session_start();
@@ -31,7 +31,10 @@ $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Käsittele salasanan vaihto
+/**
+ * Käsittele salasanan vaihto
+ * Estää demo-käyttäjää vaihtamasta salasanaa
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $passwordError = "Virheellinen lomake. Yritä uudelleen.";
@@ -75,7 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
     }
 }
 
-// Käsittele profiilin päivitys
+/**
+ * Käsittele profiilin päivitys (nimi)
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = "Virheellinen lomake. Yritä uudelleen.";
@@ -107,7 +112,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     }
 }
 
-// Käsittele varauksen peruutus
+/**
+ * Käsittele varauksen peruutus
+ * Tarkistaa että varaus kuuluu käyttäjälle ja on tulevaisuudessa
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_booking'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = "Virheellinen lomake. Yritä uudelleen.";
@@ -143,7 +151,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_booking'])) {
     }
 }
 
-// Hae käyttäjän varaukset
+/**
+ * Hae käyttäjän kaikki varaukset
+ */
 $stmt = $pdo->prepare("
     SELECT * FROM bookings 
     WHERE user_id = ? 
@@ -152,7 +162,11 @@ $stmt = $pdo->prepare("
 $stmt->execute([$_SESSION['user_id']]);
 $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Jaa varaukset tuleviin ja menneisiin
+/**
+ * Jaa varaukset tuleviin ja menneisiin
+ * Tuleva = ei vielä alkanut TAI käynnissä mutta ei peruutettu
+ * Menneyt = jo päättynyt TAI peruutettu
+ */
 $upcomingBookings = [];
 $pastBookings = [];
 $now = new DateTime();

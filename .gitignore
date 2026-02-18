@@ -1,5 +1,7 @@
 # Ympäristömuuttujat - ÄLÄ KOSKAAN LÄHETÄ GITHUBIIN!
 .env
+.env.production
+.env.local
 
 # Lokitiedostot
 logs/*.log

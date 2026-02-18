@@ -1,11 +1,12 @@
 <?php
 /**
- * Käyttäjän uloskirjautuminen
- * 
+ * Uloskirjautuminen
+ *
  * Tuhoaa käyttäjän session ja ohjaa takaisin etusivulle.
- * 
+ * Tyhjentää kaikki kirjautumistiedot turvallisesti.
+ *
  * @package BarberShop
- * @author Jesse
+ * @author  Jesse Haapaniemi
  */
 
 session_start();

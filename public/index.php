@@ -1,7 +1,20 @@
-<?php require_once __DIR__ . '/../includes/header.php'; ?>
+<?php
+/**
+ * Etusivu
+ *
+ * Sisältää hero-osion, tietoa yrityksestä, hinnaston,
+ * ajanvarauskehotteen ja yhteystiedot.
+ *
+ * @package BarberShop
+ * @author  Jesse Haapaniemi
+ */
+
+require_once __DIR__ . '/../includes/header.php';
+?>
 
 <main>
 
+    <!-- Hero-osio: Pääkuva ja slogan -->
     <section id="hero" class="hero">
     <div class="hero-content">
         <h1>Perinteistä ja modernia parturointia Kuopion sydämessä</h1>
@@ -10,7 +23,8 @@
     </div>
     </section>
 
-   <section id="about">
+    <!-- Meistä-osio: Yrityksen esittely -->
+    <section id="about">
     <div class="about-content">
         <h2>Meistä</h2>
         <p>Olemme Kuopiossa toimiva parturiliike, joka yhdistää perinteisen
@@ -22,7 +36,8 @@
     </div>
     </section>
 
-   <section id="services">
+    <!-- Hinnasto-osio: Palvelut ja hinnat -->
+    <section id="services">
     <div class="services-content">
         <h2>Hinnasto</h2>
         <ul class="service-list">
@@ -34,21 +49,24 @@
     </div>
     </section>
 
+    <!-- Ajanvaraus-osio: Kehotus varata aika -->
     <section id="booking-cta">
     <div class="container">
         <h2>Varaa aika helposti verkossa</h2>
         <p>Valitse sinulle sopiva aika ja tule kokemaan laadukas parturipalvelu.</p>
         <p><strong>Huom:</strong> Ajanvaraus edellyttää kirjautumista asiakastilille.</p>
-        <?php if(isset($_SESSION['user_id'])): ?>
-            <!-- Käyttäjä kirjautunut -->
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <!-- Kirjautunut käyttäjä ohjataan suoraan varaussivulle -->
             <a href="booking.php" class="btn-primary">Varaa aika nyt</a>
         <?php else: ?>
-            <!-- Käyttäjä ei kirjautunut -->
+            <!-- Kirjautumaton käyttäjä ohjataan kirjautumissivulle -->
             <a href="login.php" class="btn-primary">Varaa aika nyt</a>
         <?php endif; ?>
     </div>
     </section>
 
+    <!-- Yhteystiedot-osio -->
     <section id="contact">
     <div class="contact-content">
         <h2>Yhteystiedot</h2>
@@ -63,5 +81,6 @@
     </div>
     </section>
 
+</main>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

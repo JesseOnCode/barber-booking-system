@@ -1,12 +1,17 @@
 <?php
 /**
  * Admin-paneelin etusivu
- * 
- * Näyttää tilastoja ja viimeisimmät varaukset.
- * Vain adminit voivat päästä tänne.
- * 
+ *
+ * Admin-käyttöliittymä jossa voidaan:
+ * - Nähdä tilastoja (tänään, viikko, kuukausi)
+ * - Hallita varauksia (lisää, poista)
+ * - Hallita asiakkaita (GDPR-poisto)
+ * - Hakea asiakkaita nimellä tai sähköpostilla
+ *
+ * Vain admin-käyttäjät pääsevät tälle sivulle.
+ *
  * @package BarberShop
- * @author Jesse
+ * @author  Jesse Haapaniemi
  */
 
 session_start();
@@ -33,7 +38,9 @@ if (!$user || !$user['is_admin']) {
     exit;
 }
 
-// Käsittele varauksen poisto
+/**
+ * Käsittele varauksen poisto
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_booking'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = "Virheellinen lomake.";
@@ -50,7 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_booking'])) {
     }
 }
 
-// Käsittele asiakkaan tietojen poisto (GDPR)
+/**
+ * Käsittele asiakkaan tietojen poisto (GDPR)
+ * Poistaa käyttäjän ja kaikki hänen varauksensa
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user_data'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = "Virheellinen lomake.";
@@ -73,7 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user_data'])) 
     }
 }
 
-// Käsittele uuden varauksen lisäys
+/**
+ * Käsittele uuden varauksen lisäys
+ * Tukee sekä olemassa olevia että uusia asiakkaita
+ * Tarkistaa päällekkäisyydet ennen tallennusta
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_booking'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = "Virheellinen lomake.";
