@@ -12,7 +12,7 @@ Moderni parturi-varausjärjestelmä, joka tarjoaa käyttäjille helpon tavan var
 ## Live Demo
 
 Projekti on nähtävissä live-demona osoitteessa:
-**[jessehaapaniemi.com/barber-booking-system](https://www.jessehaapaniemi.com/barber-booking-system)**
+**[jessehaapaniemi.com/barber-booking-system](https://www.jessehaapaniemi.com/barber-booking-system/public/)**
 
 ### Demo-tunnukset
 
