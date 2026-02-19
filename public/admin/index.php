@@ -92,10 +92,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_booking'])) {
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = "Virheellinen lomake.";
     } else {
-        $isNewCustomer = isset($_POST['new_customer']) && $_POST['new_customer'] === '1';
-        $service = $_POST['service'];
-        $date = $_POST['date'];
-        $time = $_POST['time'];
+        $customerType = $_POST['customer_type'] ?? 'existing';
+        $isNewCustomer = ($customerType === 'new');
+        $service = $_POST['service'] ?? '';
+        $date = $_POST['date'] ?? '';
+        $time = $_POST['time'] ?? '';
         $notes = trim($_POST['notes'] ?? '');
         
         $serviceDurations = [
@@ -182,11 +183,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_booking'])) {
                 }
             }
         } else {
-            // Olemassa oleva asiakas
-            $userId = (int)$_POST['user_id'];
-            
-            if (empty($userId) || empty($service) || empty($date) || empty($time)) {
-                $error = "Täytä kaikki pakolliset kentät.";
+    // Olemassa oleva asiakas
+    $userId = (int)($_POST['user_id'] ?? 0);
+    
+    // Debug - katso PHP:n error logista
+    error_log("POST data: " . print_r($_POST, true));
+    error_log("User ID: " . $userId);
+    
+    if (empty($userId) || empty($service) || empty($date) || empty($time)) {
+        $error = "Täytä kaikki pakolliset kentät. (UserID: $userId, Service: $service)";
             } elseif (new DateTime("$date $time") <= new DateTime()) {
                 $error = "Et voi varata aikaa menneisyyteen.";
             } else {
@@ -304,105 +309,107 @@ require_once __DIR__ . '/../../includes/header.php';
                 </div>
             <?php endif; ?>
             
-            <!-- Lisää uusi varaus -->
-            <div class="admin-add-booking">
-                <button class="btn-toggle" onclick="toggleAddForm()">+ Lisää uusi varaus</button>
-                
-                <div id="addBookingForm" class="add-form" style="display: none;">
-                    <h3>Uusi varaus</h3>
-                    
-                    <form method="POST" class="admin-form">
-                        <?php csrf_field(); ?>
-                        
-                        <!-- Valinta: Uusi vai olemassa oleva asiakas -->
-                        <div class="form-group">
-                            <label style="display: block; margin-bottom: 10px;">Asiakastyyppi *</label>
-                        <div style="margin-bottom: 8px;">
-                            <input type="radio" name="customer_type" value="existing" id="existing" checked>
-                            <label for="existing">Valitse olemassa oleva asiakas</label>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <input type="radio" name="customer_type" value="new" id="new">
-                            <label for="new">Uusi asiakas (puhelinvaraus)</label>
-                        </div>
-                        
-                        <!-- Olemassa oleva asiakas -->
-                        <div id="existingCustomer" class="customer-section">
-                            <div class="form-group">
-                                <label for="user_id">Valitse asiakas *</label>
-                                <select name="user_id" id="user_id">
-                                    <option value="">-- Valitse asiakas --</option>
-                                    <?php
-                                    $users = $pdo->query("SELECT id, first_name, last_name, email FROM users WHERE is_admin = 0 ORDER BY first_name")->fetchAll();
-                                    foreach($users as $u):
-                                    ?>
-                                        <option value="<?= $u['id'] ?>">
-                                            <?= htmlspecialchars($u['first_name'] . ' ' . $u['last_name']) ?> 
-                                            (<?= htmlspecialchars($u['email']) ?>)
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <!-- Uusi asiakas -->
-                        <div id="newCustomer" class="customer-section" style="display: none;">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="new_first_name">Etunimi *</label>
-                                    <input type="text" name="new_first_name" id="new_first_name" placeholder="Esim. Matti">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="new_last_name">Sukunimi *</label>
-                                    <input type="text" name="new_last_name" id="new_last_name" placeholder="Esim. Meikäläinen">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="new_email">Sähköposti *</label>
-                                <input type="email" name="new_email" id="new_email" placeholder="esim@email.fi">
-                            </div>
-                        </div>
-                        
-                        <!-- Palvelu ja aika -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="service">Palvelu *</label>
-                                <select name="service" id="service" required>
-                                    <option value="">-- Valitse palvelu --</option>
-                                    <option value="Hiustenleikkaus">Hiustenleikkaus - 30 min</option>
-                                    <option value="Parranleikkaus">Parranleikkaus - 15 min</option>
-                                    <option value="Koneajo">Koneajo - 20 min</option>
-                                    <option value="Hiustenleikkaus + Parranleikkaus">Hiustenleikkaus + Parranleikkaus - 45 min</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="date">Päivämäärä *</label>
-                                <input type="date" name="date" id="date" value="<?= date('Y-m-d') ?>" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="time">Aika *</label>
-                                <input type="time" name="time" id="time" value="09:00" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="notes">Lisätiedot</label>
-                                <textarea name="notes" id="notes" rows="3" placeholder="Valinnainen..."></textarea>
-                            </div>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" name="add_booking" class="btn-submit">Tallenna varaus</button>
-                            <button type="button" class="btn-cancel" onclick="toggleAddForm()">Peruuta</button>
-                        </div>
-                    </form>
+           <!-- Lisää uusi varaus -->
+<div class="admin-add-booking">
+    <button class="btn-toggle" onclick="toggleAddForm()">+ Lisää uusi varaus</button>
+    
+    <div id="addBookingForm" class="add-form" style="display: none;">
+        <h3>Uusi varaus</h3>
+        
+        <form method="POST" class="admin-form">
+            <?php csrf_field(); ?>
+            
+            <!-- Valinta: Uusi vai olemassa oleva asiakas -->
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 10px;">Asiakastyyppi *</label>
+                <div style="margin-bottom: 8px;">
+                    <input type="radio" name="customer_type" value="existing" id="existing" onchange="toggleCustomerType()">
+                    <label for="existing">Valitse olemassa oleva asiakas</label>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <input type="radio" name="customer_type" value="new" id="new" checked onchange="toggleCustomerType()">
+                    <label for="new">Uusi asiakas (puhelinvaraus)</label>
                 </div>
             </div>
+            
+            <!-- Olemassa oleva asiakas -->
+            <div id="existingCustomer" class="customer-section" style="display: none;">
+                <input type="hidden" name="user_id" value="" id="user_id_hidden">
+                <div class="form-group">
+                    <label for="user_id">Valitse asiakas *</label>
+                    <select name="user_id_select" id="user_id" onchange="document.getElementById('user_id_hidden').value = this.value;">
+                        <option value="">-- Valitse asiakas --</option>
+                        <?php
+                        $users = $pdo->query("SELECT id, first_name, last_name, email FROM users WHERE is_admin = 0 ORDER BY first_name")->fetchAll();
+                        foreach($users as $u):
+                        ?>
+                            <option value="<?= $u['id'] ?>">
+                                <?= htmlspecialchars($u['first_name'] . ' ' . $u['last_name']) ?> 
+                                (<?= htmlspecialchars($u['email']) ?>)
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Uusi asiakas -->
+            <div id="newCustomer" class="customer-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="new_first_name">Etunimi *</label>
+                        <input type="text" name="new_first_name" id="new_first_name" placeholder="Esim. Matti" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new_last_name">Sukunimi *</label>
+                        <input type="text" name="new_last_name" id="new_last_name" placeholder="Esim. Meikäläinen" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="new_email">Sähköposti *</label>
+                    <input type="email" name="new_email" id="new_email" placeholder="esim@email.fi" required>
+                </div>
+            </div>
+            
+            <!-- Palvelu ja aika -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="service">Palvelu *</label>
+                    <select name="service" id="service" required>
+                        <option value="">-- Valitse palvelu --</option>
+                        <option value="Hiustenleikkaus">Hiustenleikkaus - 30 min</option>
+                        <option value="Parranleikkaus">Parranleikkaus - 15 min</option>
+                        <option value="Koneajo">Koneajo - 20 min</option>
+                        <option value="Hiustenleikkaus + Parranleikkaus">Hiustenleikkaus + Parranleikkaus - 45 min</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Päivämäärä *</label>
+                    <input type="date" name="date" id="date" value="<?= date('Y-m-d') ?>" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="time">Aika *</label>
+                    <input type="time" name="time" id="time" value="09:00" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Lisätiedot</label>
+                    <textarea name="notes" id="notes" rows="3" placeholder="Valinnainen..."></textarea>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" name="add_booking" class="btn-submit">Tallenna varaus</button>
+                <button type="button" class="btn-cancel" onclick="toggleAddForm()">Peruuta</button>
+            </div>
+        </form>
+    </div>
+</div>
             
             <!-- Välilehdet -->
             <div class="admin-tabs">
@@ -678,19 +685,30 @@ function switchTab(tabName) {
 }
 
 function toggleCustomerType() {
-    const isNew = document.querySelector('input[name="new_customer"]:checked').value === '1';
+    const selectedValue = document.querySelector('input[name="customer_type"]:checked').value;
     const existingSection = document.getElementById('existingCustomer');
     const newSection = document.getElementById('newCustomer');
     const userSelect = document.getElementById('user_id');
+    const newFirstName = document.getElementById('new_first_name');
+    const newLastName = document.getElementById('new_last_name');
+    const newEmail = document.getElementById('new_email');
     
-    if (isNew) {
+    if (selectedValue === 'new') {
+        // Uusi asiakas
         existingSection.style.display = 'none';
         newSection.style.display = 'block';
         userSelect.removeAttribute('required');
+        newFirstName.setAttribute('required', 'required');
+        newLastName.setAttribute('required', 'required');
+        newEmail.setAttribute('required', 'required');
     } else {
+        // Olemassa oleva asiakas
         existingSection.style.display = 'block';
         newSection.style.display = 'none';
         userSelect.setAttribute('required', 'required');
+        newFirstName.removeAttribute('required');
+        newLastName.removeAttribute('required');
+        newEmail.removeAttribute('required');
     }
 }
 
