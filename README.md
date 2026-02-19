@@ -119,7 +119,7 @@ barber-booking-system/
 ![Etusivu](docs/screenshots/hero.png)
 
 ### Kirjautuminen
-![Kirjautuminen](docs/screensjots/login.png)
+![Kirjautuminen](docs/screenshots/login.png)
 
 ### Ajanvaraus
 ![Ajanvaraus](docs/screenshots/booking.png)
