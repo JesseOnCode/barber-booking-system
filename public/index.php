@@ -17,8 +17,8 @@ require_once __DIR__ . '/../includes/header.php';
     <!-- Hero-osio: Pääkuva ja slogan -->
     <section id="hero" class="hero">
     <div class="hero-content">
-        <h1>Perinteistä ja modernia parturointia Kuopion sydämessä</h1>
-        <p>Laadukasta työnjälkeä, rento tunnelma ja henkilökohtaista palvelua – ajanvaraus helposti verkossa.</p>
+        <h1>Tervetuloa BarberShopiin!</h1>
+<p>Laadukasta työnjälkeä, rento tunnelma ja henkilökohtaista palvelua – ajanvaraus helposti verkossa.</p>
         <a href="booking.php" class="btn-primary">Varaa aika</a>
     </div>
     </section>
